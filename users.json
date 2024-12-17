@@ -12,5 +12,12 @@
         "email": "i@gmail.com",
         "password": "12345678",
         "role": "User"
+    },
+    {
+        "id": 3,
+        "username": "ha",
+        "email": "h@gmail.com",
+        "password": "12345678",
+        "role": "User"
     }
 ]
