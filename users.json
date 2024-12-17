@@ -1,7 +1,16 @@
 [
     {
-        "username": "ras",
-        "email": "ras@gmail.com",
-        "password": "12345678"
+        "id": 1,
+        "username": "rasya",
+        "email": "r@gmail.com",
+        "password": "12345678",
+        "role": "Chef"
+    },
+    {
+        "id": 2,
+        "username": "ikbal",
+        "email": "i@gmail.com",
+        "password": "12345678",
+        "role": "User"
     }
 ]
