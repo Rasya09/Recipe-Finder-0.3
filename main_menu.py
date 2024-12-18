@@ -1,4 +1,4 @@
-from auth_app import register, login
+from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, load_recipes
 
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
@@ -11,7 +11,13 @@ def user_menu(user):
         pilihan = input("Pilih menu (1/2/3): ")
 
         if pilihan == '1':
-            print("Menampilkan resep-resep yang tersedia...")
+            recipes = load_recipes()
+            if not recipes:
+                print("Belum ada resep yang tersedia.")
+            else:
+                print("Resep yang tersedia:")
+                for recipe in recipes:
+                    print(f"- {recipe['title']}: {recipe['description']}")
         elif pilihan == '2':
             print("Menambahkan resep ke daftar favorit...")
         elif pilihan == '3':
@@ -26,15 +32,27 @@ def chef_menu(user):
         print(f"\n=== Main Menu, Halo Selamat Datang Chef {user['username']} ===")
         print("1. Tambahkan Resep Baru")
         print("2. Lihat Resep Saya")
-        print("3. Logout")
+        print("3. Edit Resep")
+        print("4. Hapus Resep") 
+        print("5. Logout")
 
-        pilihan = input("Pilih menu (1/2/3): ")
+        pilihan = input("Pilih menu (1/2/3/4/5): ")
 
         if pilihan == '1':
-            print("Menambahkan resep baru...")
+            add_recipe(user)  # Panggil fungsi untuk menambahkan resep
         elif pilihan == '2':
-            print("Menampilkan daftar resep Anda...")
+            my_recipes = [recipe for recipe in load_recipes() if recipe['author'] == user['username']]
+            if not my_recipes:
+                print("Anda belum memiliki resep.")
+            else:
+                print("Resep Anda:")
+                for recipe in my_recipes:
+                    print(f"- {recipe['title']}: {recipe['description']}")
         elif pilihan == '3':
+            edit_recipe(user)  # Panggil fungsi untuk mengedit resep
+        elif pilihan == '4':
+            delete_recipe(user)  # Panggil fungsi untuk menghapus resep
+        elif pilihan == '5':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:

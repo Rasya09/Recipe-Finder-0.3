@@ -19,5 +19,19 @@
         "email": "h@gmail.com",
         "password": "12345678",
         "role": "User"
+    },
+    {
+        "id": 4,
+        "username": "Ikbal Miftahudin",
+        "email": "ikbalmiftahudin1@gmail.com",
+        "password": "12345678",
+        "role": "User"
+    },
+    {
+        "id": 5,
+        "username": "Raysa Alfiano",
+        "email": "rasya@gmail.com",
+        "password": "12345678",
+        "role": "Chef"
     }
 ]
