@@ -1,4 +1,4 @@
-from auth_app import register, login, add_recipe, load_recipes
+from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, load_recipes
 
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
@@ -32,9 +32,11 @@ def chef_menu(user):
         print(f"\n=== Main Menu, Halo Selamat Datang Chef {user['username']} ===")
         print("1. Tambahkan Resep Baru")
         print("2. Lihat Resep Saya")
-        print("3. Logout")
+        print("3. Edit Resep")
+        print("4. Hapus Resep")
+        print("5. Logout")
 
-        pilihan = input("Pilih menu (1/2/3): ")
+        pilihan = input("Pilih menu (1/2/3/4/5): ")
 
         if pilihan == '1':
             add_recipe(user)  # Panggil fungsi untuk menambahkan resep
@@ -47,6 +49,10 @@ def chef_menu(user):
                 for recipe in my_recipes:
                     print(f"- {recipe['title']}: {recipe['description']}")
         elif pilihan == '3':
+            edit_recipe(user)  # Panggil fungsi untuk mengedit resep
+        elif pilihan == '4':
+            delete_recipe(user)  # Panggil fungsi untuk menghapus resep
+        elif pilihan == '5':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:

@@ -1,15 +1,1 @@
-[
-    {
-        "id": 1,
-        "title": "Nasi Kuning",
-        "description": "bla bla bla bla",
-        "ingredients": [
-            "nasi",
-            "telur"
-        ],
-        "steps": [
-            "masukan nasi , blablabla"
-        ],
-        "author": "Raysa Alfiano"
-    }
-]
+[]

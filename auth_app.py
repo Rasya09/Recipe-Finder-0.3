@@ -137,3 +137,77 @@ def add_recipe(chef):
     # Simpan data ke file JSON
     save_recipes(recipes)
     print("Resep berhasil ditambahkan!")
+
+# Fungsi untuk mengedit resep
+def edit_recipe(chef):
+    print("\n=== Edit Resep ===")
+    recipes = load_recipes()
+    chef_recipes = [recipe for recipe in recipes if recipe['author'] == chef['username']]
+
+    if not chef_recipes:
+        print("Anda belum memiliki resep untuk diedit.")
+        return
+
+    print("Resep Anda:")
+    for recipe in chef_recipes:
+        print(f"{recipe['id']}. {recipe['title']}")
+
+    try:
+        recipe_id = int(input("Masukkan ID resep yang ingin diedit: "))
+    except ValueError:
+        print("ID tidak valid!")
+        return
+
+    recipe_to_edit = next((recipe for recipe in chef_recipes if recipe['id'] == recipe_id), None)
+    if not recipe_to_edit:
+        print("Resep tidak ditemukan.")
+        return
+
+    print("Kosongkan input jika tidak ingin mengubah bagian tersebut.")
+    new_title = input(f"Judul baru ({recipe_to_edit['title']}): ") or recipe_to_edit['title']
+    new_description = input(f"Deskripsi baru ({recipe_to_edit['description']}): ") or recipe_to_edit['description']
+    new_ingredients = input("Bahan-bahan baru (pisahkan dengan koma, atau tekan Enter untuk tidak mengubah): ")
+    new_steps = input("Langkah-langkah baru (pisahkan dengan titik koma, atau tekan Enter untuk tidak mengubah): ")
+
+    recipe_to_edit['title'] = new_title
+    recipe_to_edit['description'] = new_description
+    if new_ingredients:
+        recipe_to_edit['ingredients'] = [i.strip() for i in new_ingredients.split(",")]
+    if new_steps:
+        recipe_to_edit['steps'] = [s.strip() for s in new_steps.split(";")]
+
+    save_recipes(recipes)
+    print("Resep berhasil diperbarui!")
+
+# Fungsi untuk menghapus resep
+def delete_recipe(chef):
+    print("\n=== Hapus Resep ===")
+    recipes = load_recipes()
+    chef_recipes = [recipe for recipe in recipes if recipe['author'] == chef['username']]
+
+    if not chef_recipes:
+        print("Anda belum memiliki resep untuk dihapus.")
+        return
+
+    print("Resep Anda:")
+    for recipe in chef_recipes:
+        print(f"{recipe['id']}. {recipe['title']}")
+
+    try:
+        recipe_id = int(input("Masukkan ID resep yang ingin dihapus: "))
+    except ValueError:
+        print("ID tidak valid!")
+        return
+
+    recipe_to_delete = next((recipe for recipe in chef_recipes if recipe['id'] == recipe_id), None)
+    if not recipe_to_delete:
+        print("Resep tidak ditemukan.")
+        return
+
+    confirm = input(f"Apakah Anda yakin ingin menghapus resep '{recipe_to_delete['title']}'? (y/n): ").lower()
+    if confirm == 'y':
+        recipes.remove(recipe_to_delete)
+        save_recipes(recipes)
+        print("Resep berhasil dihapus!")
+    else:
+        print("Penghapusan dibatalkan.")
