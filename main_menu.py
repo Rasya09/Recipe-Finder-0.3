@@ -33,7 +33,7 @@ def chef_menu(user):
         print("1. Tambahkan Resep Baru")
         print("2. Lihat Resep Saya")
         print("3. Edit Resep")
-        print("4. Hapus Resep")
+        print("4. Hapus Resep") 
         print("5. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
