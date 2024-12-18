@@ -16,8 +16,23 @@ def user_menu(user):
                 print("Belum ada resep yang tersedia.")
             else:
                 print("Resep yang tersedia:")
-                for recipe in recipes:
-                    print(f"- {recipe['title']}: {recipe['description']}")
+                for i, recipe in enumerate(recipes, 1):
+                    print(f"{i}. {recipe['title']}")  # Menampilkan hanya judul resep
+
+                try:
+                    selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(recipes):
+                        print("Pilihan tidak valid!")
+                        continue
+                    
+                    selected_recipe = recipes[selected_recipe_index]
+                    print("\nDetail Resep:")
+                    print(f"Judul: {selected_recipe['title']}")
+                    print(f"Deskripsi: {selected_recipe['description']}")
+                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                except ValueError:
+                    print("Pilihan tidak valid!")
         elif pilihan == '2':
             print("Menambahkan resep ke daftar favorit...")
         elif pilihan == '3':
@@ -46,8 +61,23 @@ def chef_menu(user):
                 print("Anda belum memiliki resep.")
             else:
                 print("Resep Anda:")
-                for recipe in my_recipes:
-                    print(f"- {recipe['title']}: {recipe['description']}")
+                for i, recipe in enumerate(my_recipes, 1):
+                    print(f"{i}. {recipe['title']}")  # Menampilkan hanya judul resep
+
+                try:
+                    selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(my_recipes):
+                        print("Pilihan tidak valid!")
+                        continue
+                    
+                    selected_recipe = my_recipes[selected_recipe_index]
+                    print("\nDetail Resep:")
+                    print(f"Judul: {selected_recipe['title']}")
+                    print(f"Deskripsi: {selected_recipe['description']}")
+                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                except ValueError:
+                    print("Pilihan tidak valid!")
         elif pilihan == '3':
             edit_recipe(user)  # Panggil fungsi untuk mengedit resep
         elif pilihan == '4':

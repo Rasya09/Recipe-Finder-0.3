@@ -1,1 +1,30 @@
-[]
+[
+    {
+        "id": 1,
+        "title": "nasi goreng",
+        "description": "telur + nasi",
+        "ingredients": [
+            "nasi",
+            "telur",
+            "minyak",
+            "bawang"
+        ],
+        "steps": [
+            "goreng nasi dan telur"
+        ],
+        "author": "rasya"
+    },
+    {
+        "id": 2,
+        "title": "mie goreng",
+        "description": "mie goreng",
+        "ingredients": [
+            "mie",
+            "bumbu"
+        ],
+        "steps": [
+            "rebus mie selama 10 menit, lalu tiriskan, masukan mie dan bumbu kedalam piring/mangkok, selesai"
+        ],
+        "author": "rasya"
+    }
+]
