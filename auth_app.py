@@ -118,8 +118,24 @@ def add_recipe(chef):
     # Input data resep
     title = input("Masukkan judul resep: ")
     description = input("Masukkan deskripsi resep: ")
-    ingredients = input("Masukkan bahan-bahan (pisahkan dengan koma): ").split(",")
-    steps = input("Masukkan langkah-langkah (pisahkan dengan titik koma): ").split(";")
+
+    # Input bahan-bahan secara satu per satu
+    ingredients = []
+    print("Masukkan bahan-bahan (ketik 'selesai' jika sudah):")
+    while True:
+        ingredient = input("Bahan: ")
+        if ingredient.lower() == 'selesai':
+            break
+        ingredients.append(ingredient.strip())
+
+    # Input langkah-langkah secara satu per satu
+    steps = []
+    print("Masukkan langkah-langkah (ketik 'selesai' jika sudah):")
+    while True:
+        step = input("Langkah: ")
+        if step.lower() == 'selesai':
+            break
+        steps.append(step.strip())
 
     # Buat ID resep otomatis
     recipe_id = generate_recipe_id(recipes)
@@ -129,8 +145,8 @@ def add_recipe(chef):
         "id": recipe_id,
         "title": title.strip(),
         "description": description.strip(),
-        "ingredients": [i.strip() for i in ingredients],
-        "steps": [s.strip() for s in steps],
+        "ingredients": ingredients,
+        "steps": steps,
         "author": chef['username']  # Menyimpan nama Chef sebagai pembuat resep
     })
 
@@ -166,15 +182,29 @@ def edit_recipe(chef):
     print("Kosongkan input jika tidak ingin mengubah bagian tersebut.")
     new_title = input(f"Judul baru ({recipe_to_edit['title']}): ") or recipe_to_edit['title']
     new_description = input(f"Deskripsi baru ({recipe_to_edit['description']}): ") or recipe_to_edit['description']
-    new_ingredients = input("Bahan-bahan baru (pisahkan dengan koma, atau tekan Enter untuk tidak mengubah): ")
-    new_steps = input("Langkah-langkah baru (pisahkan dengan titik koma, atau tekan Enter untuk tidak mengubah): ")
+    
+    # Mengubah bahan-bahan secara satu per satu
+    new_ingredients = []
+    print("Masukkan bahan-bahan baru (ketik 'selesai' jika sudah):")
+    while True:
+        ingredient = input("Bahan: ")
+        if ingredient.lower() == 'selesai':
+            break
+        new_ingredients.append(ingredient.strip())
+    
+    # Mengubah langkah-langkah secara satu per satu
+    new_steps = []
+    print("Masukkan langkah-langkah baru (ketik 'selesai' jika sudah):")
+    while True:
+        step = input("Langkah: ")
+        if step.lower() == 'selesai':
+            break
+        new_steps.append(step.strip())
 
     recipe_to_edit['title'] = new_title
     recipe_to_edit['description'] = new_description
-    if new_ingredients:
-        recipe_to_edit['ingredients'] = [i.strip() for i in new_ingredients.split(",")]
-    if new_steps:
-        recipe_to_edit['steps'] = [s.strip() for s in new_steps.split(";")]
+    recipe_to_edit['ingredients'] = new_ingredients
+    recipe_to_edit['steps'] = new_steps
 
     save_recipes(recipes)
     print("Resep berhasil diperbarui!")
