@@ -3,7 +3,7 @@ from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, lo
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
     while True:
-        print(f"\n=== Main Menu, Halo selamat Datang {user['username']} ===")
+        print(f"\n=== Main Menu, Halo selamat datang {user['username']} ===")
         print("1. Lihat Resep")
         print("2. Favoritkan Resep")
         print("3. Logout")
@@ -14,41 +14,65 @@ def user_menu(user):
             recipes = load_recipes()
             if not recipes:
                 print("Belum ada resep yang tersedia.")
-            else:
-                print("Resep yang tersedia:")
-                for i, recipe in enumerate(recipes, 1):
-                    print(f"{i}. {recipe['title']}")  # Menampilkan hanya judul resep
+                continue
+
+            # Daftar kategori yang tersedia
+            categories = ["Makanan Ringan", "Makanan Berat", "Makanan Penutup", "Makanan Pembuka", "Cemilan", "Minuman"]
+            print("\nPilih kategori resep yang ingin dilihat:")
+            for i, category in enumerate(categories, 1):
+                print(f"{i}. {category}")
+
+            try:
+                selected_category_index = int(input("Masukkan nomor kategori: ")) - 1
+                if selected_category_index < 0 or selected_category_index >= len(categories):
+                    print("Pilihan kategori tidak valid!")
+                    continue
+
+                selected_category = categories[selected_category_index]
+                filtered_recipes = [recipe for recipe in recipes if recipe.get("category") == selected_category]
+
+                if not filtered_recipes:
+                    print(f"Tidak ada resep tersedia untuk kategori '{selected_category}'.")
+                    continue
+
+                print(f"\nResep yang tersedia di kategori '{selected_category}':")
+                for i, recipe in enumerate(filtered_recipes, 1):
+                    print(f"{i}. {recipe['title']}")
 
                 try:
                     selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
-                    if selected_recipe_index < 0 or selected_recipe_index >= len(recipes):
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(filtered_recipes):
                         print("Pilihan tidak valid!")
                         continue
-                    
-                    selected_recipe = recipes[selected_recipe_index]
+
+                    selected_recipe = filtered_recipes[selected_recipe_index]
                     print("\nDetail Resep:")
                     print(f"Judul: {selected_recipe['title']}")
                     print(f"Deskripsi: {selected_recipe['description']}")
                     print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Kategori: {selected_recipe['category']}")
                 except ValueError:
                     print("Pilihan tidak valid!")
+            except ValueError:
+                print("Masukkan angka yang sesuai untuk memilih kategori.")
         elif pilihan == '2':
-            print("Menambahkan resep ke daftar favorit...")
+            print("Menambahkan resep ke daftar favorit... (fitur belum diimplementasikan)")
         elif pilihan == '3':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")
 
+
 # Fungsi menu untuk pengguna dengan role Chef
 def chef_menu(user):
     while True:
-        print(f"\n=== Main Menu, Halo Selamat Datang Chef {user['username']} ===")
+        print(f"\n=== Main Menu, Halo selamat datang Chef {user['username']} ===")
         print("1. Tambahkan Resep Baru")
         print("2. Lihat Resep Saya")
         print("3. Edit Resep")
-        print("4. Hapus Resep") 
+        print("4. Hapus Resep")
         print("5. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
@@ -69,13 +93,14 @@ def chef_menu(user):
                     if selected_recipe_index < 0 or selected_recipe_index >= len(my_recipes):
                         print("Pilihan tidak valid!")
                         continue
-                    
+
                     selected_recipe = my_recipes[selected_recipe_index]
                     print("\nDetail Resep:")
                     print(f"Judul: {selected_recipe['title']}")
                     print(f"Deskripsi: {selected_recipe['description']}")
                     print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Kategori: {selected_recipe['category']}")  # Menampilkan kategori resep
                 except ValueError:
                     print("Pilihan tidak valid!")
         elif pilihan == '3':
@@ -91,24 +116,28 @@ def chef_menu(user):
 # Fungsi menu utama
 def main_menu():
     while True:
-        print("\n=== Menu Utama Aplikasi ===")
-        print("1. Register")
-        print("2. Login")
+        print("\n=== Aplikasi Resep ===")
+        print("1. Login")
+        print("2. Registrasi")
         print("3. Keluar")
 
         pilihan = input("Pilih menu (1/2/3): ")
 
         if pilihan == '1':
-            register()
-        elif pilihan == '2':
-            user = login()  # Login akan mengembalikan data user
-            if user:  # Jika login berhasil
+            user = login()
+            if user:
                 if user['role'] == 'User':
-                    user_menu(user)
+                    user_menu(user)  # Masuk ke menu User
                 elif user['role'] == 'Chef':
-                    chef_menu(user)
+                    chef_menu(user)  # Masuk ke menu Chef
+        elif pilihan == '2':
+            register()  # Registrasi pengguna baru
         elif pilihan == '3':
-            print("Terima kasih telah menggunakan aplikasi. Sampai jumpa!")
+            print("Terima kasih telah menggunakan aplikasi ini. Sampai jumpa!")
             break
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")
+
+# Eksekusi menu utama saat file ini dijalankan
+if __name__ == "__main__":
+    main_menu()
