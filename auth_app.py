@@ -120,11 +120,11 @@ def add_recipe(chef):
     print("\nPilih Kategori Resep:")
     for idx, category in enumerate(categories, 1):
         print(f"{idx}. {category}")
-    
+
     while True:
         try:
             category_choice = int(input("Pilih kategori (1/2/3/4/5/6): "))
-            if 1 <= category_choice <= 6:
+            if 1 <= category_choice <= len(categories):
                 category = categories[category_choice - 1]
                 break
             else:
@@ -133,26 +133,67 @@ def add_recipe(chef):
             print("Pilihan tidak valid! Masukkan angka yang sesuai.")
 
     # Input data resep
-    title = input("Masukkan judul resep: ")
-    description = input("Masukkan deskripsi resep: ")
-    
+    while True:
+        title = input("Masukkan judul resep: ").strip()
+        if len(title) < 1:
+            print("Judul tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            break
+
+    while True:
+        description = input("Masukkan deskripsi resep: ").strip()
+        if len(description) < 1:
+            print("Deskripsi tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            break
+
     # Input bahan-bahan secara satu per satu
     ingredients = []
-    print("Masukkan bahan-bahan (ketik 'selesai' jika sudah):")
+    print("Masukkan bahan-bahan (ketik 'selesai' jika sudah, 'kembali' untuk kembali, 'keluar' untuk membatalkan):")
     while True:
-        ingredient = input("Bahan: ")
+        ingredient = input("Bahan: ").strip()
         if ingredient.lower() == 'selesai':
-            break
-        ingredients.append(ingredient.strip())
+            if len(ingredients) < 3:
+                print("Minimal harus ada 3 bahan.")
+            else:
+                break
+        elif ingredient.lower() == 'kembali':
+            if ingredients:
+                removed = ingredients.pop()
+                print(f"Bahan terakhir '{removed}' dihapus.")
+            else:
+                print("Tidak ada bahan yang bisa dihapus.")
+        elif ingredient.lower() == 'keluar':
+            print("Proses penambahan resep dibatalkan.")
+            return
+        elif len(ingredient) < 1:
+            print("Bahan tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            ingredients.append(ingredient)
 
     # Input langkah-langkah secara satu per satu
     steps = []
-    print("Masukkan langkah-langkah (ketik 'selesai' jika sudah):")
+    print("Masukkan langkah-langkah (ketik 'selesai' jika sudah, 'kembali' untuk kembali, 'keluar' untuk membatalkan):")
     while True:
-        step = input("Langkah: ")
+        step = input("Langkah: ").strip()
         if step.lower() == 'selesai':
-            break
-        steps.append(step.strip())
+            if len(steps) < 3:
+                print("Minimal harus ada 3 langkah.")
+            else:
+                break
+        elif step.lower() == 'kembali':
+            if steps:
+                removed = steps.pop()
+                print(f"Langkah terakhir '{removed}' dihapus.")
+            else:
+                print("Tidak ada langkah yang bisa dihapus.")
+        elif step.lower() == 'keluar':
+            print("Proses penambahan resep dibatalkan.")
+            return
+        elif len(step) < 1:
+            print("Langkah tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            steps.append(step)
 
     # Buat ID resep otomatis
     recipe_id = generate_recipe_id(recipes)
@@ -160,8 +201,8 @@ def add_recipe(chef):
     # Tambahkan resep ke dalam list
     recipes.append({
         "id": recipe_id,
-        "title": title.strip(),
-        "description": description.strip(),
+        "title": title,
+        "description": description,
         "ingredients": ingredients,
         "steps": steps,
         "category": category,  # Menyimpan kategori resep
