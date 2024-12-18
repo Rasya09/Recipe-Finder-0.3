@@ -12,7 +12,19 @@
         "steps": [
             "goreng nasi dan telur"
         ],
-        "author": "rasya"
+        "category": "Makanan Berat",
+        "author": "rasya",
+        "nilai": [
+            5,
+            4,
+            3,
+            5
+        ],
+        "ulasan": [
+            "ENAK BANGETTT",
+            "lumayan enak",
+            "biasa aja"
+        ]
     },
     {
         "id": 2,
@@ -25,6 +37,7 @@
         "steps": [
             "rebus mie selama 10 menit, lalu tiriskan, masukan mie dan bumbu kedalam piring/mangkok, selesai"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -37,6 +50,7 @@
         "steps": [
             "reger"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -49,6 +63,7 @@
         "steps": [
             "reg"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -70,6 +85,7 @@
             "f",
             "ewf"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -111,6 +127,38 @@
         "ingredients": [],
         "steps": [],
         "category": "Makanan Berat",
+        "author": "rasya"
+    },
+    {
+        "id": 10,
+        "title": "hhhh",
+        "description": "hhhh",
+        "ingredients": [
+            "o"
+        ],
+        "steps": [
+            "i"
+        ],
+        "category": "Makanan Berat",
+        "author": "rasya"
+    },
+    {
+        "id": 11,
+        "title": "Chiki Mayo",
+        "description": "Snack Chiki",
+        "ingredients": [
+            "Snack Chiki",
+            "Mayonaise",
+            "Saos sambal",
+            "kembali"
+        ],
+        "steps": [
+            "Buka Snack Chiki",
+            "Tambahkan mayonaise",
+            "Tambahkan saos sambal",
+            "aduk aduk"
+        ],
+        "category": "Makanan Ringan",
         "author": "rasya"
     }
 ]
