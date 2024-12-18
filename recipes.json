@@ -71,5 +71,46 @@
             "ewf"
         ],
         "author": "rasya"
+    },
+    {
+        "id": 6,
+        "title": "tes",
+        "description": "eei\\",
+        "ingredients": [],
+        "steps": [],
+        "category": "Makanan Berat",
+        "author": "rasya"
+    },
+    {
+        "id": 7,
+        "title": "uuoe",
+        "description": "wheq",
+        "ingredients": [],
+        "steps": [],
+        "category": "Makanan Ringan",
+        "author": "rasya"
+    },
+    {
+        "id": 8,
+        "title": "bgbg",
+        "description": "h'",
+        "ingredients": [
+            "jkhjhj",
+            "yjgjg"
+        ],
+        "steps": [
+            "jgjhjyff"
+        ],
+        "category": "Makanan Ringan",
+        "author": "rasya"
+    },
+    {
+        "id": 9,
+        "title": "ewyqio",
+        "description": "euwuqp\\",
+        "ingredients": [],
+        "steps": [],
+        "category": "Makanan Berat",
+        "author": "rasya"
     }
 ]

@@ -115,10 +115,27 @@ def add_recipe(chef):
     print("\n=== Tambahkan Resep Baru ===")
     recipes = load_recipes()
 
+    # Pilih kategori resep
+    categories = ["Makanan Ringan", "Makanan Berat", "Makanan Penutup", "Makanan Pembuka", "Cemilan", "Minuman"]
+    print("\nPilih Kategori Resep:")
+    for idx, category in enumerate(categories, 1):
+        print(f"{idx}. {category}")
+    
+    while True:
+        try:
+            category_choice = int(input("Pilih kategori (1/2/3/4/5/6): "))
+            if 1 <= category_choice <= 6:
+                category = categories[category_choice - 1]
+                break
+            else:
+                print("Pilihan tidak valid! Pilih kategori antara 1 hingga 6.")
+        except ValueError:
+            print("Pilihan tidak valid! Masukkan angka yang sesuai.")
+
     # Input data resep
     title = input("Masukkan judul resep: ")
     description = input("Masukkan deskripsi resep: ")
-
+    
     # Input bahan-bahan secara satu per satu
     ingredients = []
     print("Masukkan bahan-bahan (ketik 'selesai' jika sudah):")
@@ -147,6 +164,7 @@ def add_recipe(chef):
         "description": description.strip(),
         "ingredients": ingredients,
         "steps": steps,
+        "category": category,  # Menyimpan kategori resep
         "author": chef['username']  # Menyimpan nama Chef sebagai pembuat resep
     })
 
