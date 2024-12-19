@@ -33,5 +33,12 @@
         "email": "rasya@gmail.com",
         "password": "12345678",
         "role": "Chef"
+    },
+    {
+        "id": 6,
+        "username": "b",
+        "email": "b@gmail.com",
+        "password": "$2b$12$s3WGUJYPaBx6DB/bPoiStuVvk5Bvz32aHkcgxE9/24Xr9MbbHEley",
+        "role": "User"
     }
 ]

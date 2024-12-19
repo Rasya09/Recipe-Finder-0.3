@@ -1,5 +1,6 @@
 import json
 import os
+import bcrypt
 
 # File JSON tempat menyimpan data pengguna
 DATA_FILE = 'users.json'
@@ -45,14 +46,33 @@ def generate_recipe_id(recipes):
         return 1
     return max(recipe['id'] for recipe in recipes) + 1
 
+def validate_email(email):
+    if not email.endswith("@gmail.com"):
+        return False
+    name_part = email.split("@")[0]
+    return len(name_part) > 0
+
 # Fungsi registrasi pengguna
 def register():
     print("\n=== Registrasi Pengguna ===")
     users = load_data()
 
     # Input data pengguna
-    username = input("Masukkan username: ")
-    email = input("Masukkan email: ")
+    while True:
+        username = input("Masukkan username: ").strip()
+        if username:
+            break
+        print("Username tidak boleh kosong!")
+
+    while True:
+        email = input("Masukkan email: ").strip()
+        if email:
+            if validate_email(email):
+                break
+            else:
+                print("Email harus berformat @gmail.com dan memiliki nama!")
+        else:
+            print("Email tidak boleh kosong!")
 
     # Cek apakah email sudah digunakan
     for user in users:
@@ -60,7 +80,18 @@ def register():
             print("Email sudah terdaftar! Silakan gunakan email lain.")
             return
 
-    password = input("Masukkan password: ")
+    while True:
+        password = input("Masukkan password (minimal 8 karakter): ").strip()
+        if password:
+            if len(password) >= 8:
+                break
+            else:
+                print("Password harus minimal 8 karakter!")
+        else:
+            print("Password tidak boleh kosong!")
+
+    # Hash password dengan bcrypt
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     # Pilih role antara user dan chef
     while True:
@@ -85,7 +116,7 @@ def register():
         "id": user_id,
         "username": username,
         "email": email,
-        "password": password,
+        "password": hashed_password.decode('utf-8'),  # Simpan dalam bentuk string
         "role": role
     })
 
