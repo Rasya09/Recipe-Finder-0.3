@@ -64,6 +64,14 @@
             "3"
         ],
         "category": "Makanan Ringan",
-        "author": "Rasya Alfiano "
+        "author": "Rasya Alfiano ",
+        "nilai": [
+            5,
+            5
+        ],
+        "ulasan": [
+            "Makanan ini sangat enak",
+            "mantap"
+        ]
     }
 ]
