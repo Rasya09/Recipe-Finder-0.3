@@ -1,36 +1,22 @@
 [
     {
         "id": 1,
-        "username": "rasya",
-        "email": "r@gmail.com",
+        "username": "Rasya Alfiano ",
+        "email": "rasya@gmail.com",
         "password": "12345678",
         "role": "Chef"
     },
     {
         "id": 2,
-        "username": "ikbal",
-        "email": "i@gmail.com",
+        "username": "Ikbal Miftahudin",
+        "email": "ikbal@gmail.com",
         "password": "12345678",
         "role": "User"
     },
     {
         "id": 3,
-        "username": "ha",
-        "email": "h@gmail.com",
-        "password": "12345678",
-        "role": "User"
-    },
-    {
-        "id": 4,
-        "username": "Ikbal Miftahudin",
-        "email": "ikbalmiftahudin1@gmail.com",
-        "password": "12345678",
-        "role": "User"
-    },
-    {
-        "id": 5,
-        "username": "Raysa Alfiano",
-        "email": "rasya@gmail.com",
+        "username": "Yusar Yusup",
+        "email": "yusar@gmail.com",
         "password": "12345678",
         "role": "Chef"
     },

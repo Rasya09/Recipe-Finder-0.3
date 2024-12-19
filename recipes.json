@@ -1,132 +1,69 @@
 [
     {
         "id": 1,
-        "title": "nasi goreng",
-        "description": "telur + nasi",
+        "title": "Nasi Goreng Spesial",
+        "description": "Nasi goreng spesial ini adalah pilihan sempurna untuk makan siang atau malam. Perpaduan bumbu yang gurih dan tambahan topping seperti telur mata sapi dan ayam suwir menjadikannya istimewa. Resep ini mudah dibuat dan cocok untuk segala suasana.",
         "ingredients": [
-            "nasi",
-            "telur",
-            "minyak",
-            "bawang"
+            "2 piring nasi putih (dinginkan terlebih dahulu)",
+            "2 butir telur ayam",
+            "150 gram ayam suwir (bisa menggunakan ayam goreng atau rebus)",
+            "3 sdm kecap manis",
+            "1 sdm saus tiram",
+            "2 sdm minyak goreng",
+            "3 siung bawang putih (cincang halus)",
+            "1 buah cabai merah besar (iris tipis)",
+            "selesai"
         ],
         "steps": [
-            "goreng nasi dan telur"
+            "Panaskan minyak di wajan. Tumis bawang putih dan bawang merah hingga harum.",
+            "Masukkan cabai merah dan ayam suwir, aduk hingga tercampur rata.",
+            "Pecahkan telur di tengah wajan, orak-arik hingga matang.",
+            "Masukkan nasi putih dingin, aduk rata dengan bahan-bahan di wajan.",
+            "Tambahkan kecap manis, saus tiram, garam, dan merica. Aduk hingga nasi berwarna merata dan bumbu meresap.",
+            "Masukkan daun bawang, aduk sebentar, lalu matikan api.",
+            "Sajikan nasi goreng di piring, tambahkan telur mata sapi di atasnya. Lengkapi dengan kerupuk sebagai pelengkap."
         ],
-        "category": "Makanan Berat",
-        "author": "rasya",
-        "nilai": [
-            5,
-            4,
-            3,
-            5
-        ],
-        "ulasan": [
-            "ENAK BANGETTT",
-            "lumayan enak",
-            "biasa aja"
-        ]
+        "author": "Rasya Alfiano "
     },
     {
         "id": 2,
-        "title": "mie goreng",
-        "description": "mie goreng",
+        "title": "Ayam Goreng Madu Pedas",
+        "description": "Ayam goreng madu pedas ini adalah kombinasi sempurna antara manisnya madu dan pedasnya cabai. Cocok dijadikan lauk utama atau camilan saat berkumpul bersama keluarga. Teksturnya renyah di luar, tetapi tetap juicy di dalam.",
         "ingredients": [
-            "mie",
-            "bumbu"
+            "500 gram ayam potong kecil (sayap atau paha)",
+            "1 sdm air jeruk nipis",
+            "1 sdt garam",
+            "\u00bd sdt merica bubuk",
+            "3 sdm tepung terigu",
+            "2 sdm tepung maizena",
+            "Minyak untuk menggoreng"
         ],
         "steps": [
-            "rebus mie selama 10 menit, lalu tiriskan, masukan mie dan bumbu kedalam piring/mangkok, selesai"
+            "Lumuri ayam dengan air jeruk nipis, garam, dan merica. Diamkan selama 15 menit agar bumbu meresap.",
+            "Campur tepung terigu dan maizena. Gulingkan ayam hingga terbalut rata.",
+            "Panaskan minyak, goreng ayam hingga matang dan renyah. Angkat dan tiriskan.",
+            "Lelehkan margarin di wajan, tumis bawang putih hingga harum.",
+            "Masukkan irisan cabai merah, madu, saus cabai, saus tomat, dan saus tiram. Aduk rata.",
+            "Masukkan ayam goreng ke dalam saus, aduk hingga semua bagian ayam terbalut saus dengan sempurna.",
+            "Sajikan ayam goreng madu pedas di atas piring, taburi dengan irisan daun bawang atau wijen panggang jika suka."
         ],
-        "category": "Makanan Berat",
-        "author": "rasya"
+        "author": "Yusar Yusup"
     },
     {
         "id": 3,
-        "title": "aiugfb",
-        "description": "fergerg",
+        "title": "b",
+        "description": "b",
         "ingredients": [
-            "rergerge"
+            "b",
+            "a",
+            "c"
         ],
         "steps": [
-            "reger"
-        ],
-        "category": "Makanan Berat",
-        "author": "rasya"
-    },
-    {
-        "id": 4,
-        "title": "ahfkbe",
-        "description": "efgerg",
-        "ingredients": [
-            "greger"
-        ],
-        "steps": [
-            "reg"
-        ],
-        "category": "Makanan Berat",
-        "author": "rasya"
-    },
-    {
-        "id": 5,
-        "title": "guasife",
-        "description": "fefer",
-        "ingredients": [
-            "mie",
-            "nafe",
-            "ef",
-            "e",
-            "f",
-            "er"
-        ],
-        "steps": [
-            "neuff",
-            "efnefewf",
-            "e",
-            "f",
-            "ewf"
-        ],
-        "category": "Makanan Berat",
-        "author": "rasya"
-    },
-    {
-        "id": 6,
-        "title": "tes",
-        "description": "eei\\",
-        "ingredients": [],
-        "steps": [],
-        "category": "Makanan Berat",
-        "author": "rasya"
-    },
-    {
-        "id": 7,
-        "title": "uuoe",
-        "description": "wheq",
-        "ingredients": [],
-        "steps": [],
-        "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 8,
-        "title": "bgbg",
-        "description": "h'",
-        "ingredients": [
-            "jkhjhj",
-            "yjgjg"
-        ],
-        "steps": [
-            "jgjhjyff"
+            "a",
+            "2",
+            "3"
         ],
         "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 9,
-        "title": "ewyqio",
-        "description": "euwuqp\\",
-        "ingredients": [],
-        "steps": [],
-        "category": "Makanan Berat",
-        "author": "rasya"
+        "author": "Rasya Alfiano "
     }
 ]
