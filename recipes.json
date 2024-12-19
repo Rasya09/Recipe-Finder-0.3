@@ -12,7 +12,19 @@
         "steps": [
             "goreng nasi dan telur"
         ],
-        "author": "rasya"
+        "category": "Makanan Berat",
+        "author": "rasya",
+        "nilai": [
+            5,
+            4,
+            3,
+            5
+        ],
+        "ulasan": [
+            "ENAK BANGETTT",
+            "lumayan enak",
+            "biasa aja"
+        ]
     },
     {
         "id": 2,
@@ -25,6 +37,7 @@
         "steps": [
             "rebus mie selama 10 menit, lalu tiriskan, masukan mie dan bumbu kedalam piring/mangkok, selesai"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -37,6 +50,7 @@
         "steps": [
             "reger"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -49,6 +63,7 @@
         "steps": [
             "reg"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -70,6 +85,7 @@
             "f",
             "ewf"
         ],
+        "category": "Makanan Berat",
         "author": "rasya"
     },
     {
@@ -111,83 +127,6 @@
         "ingredients": [],
         "steps": [],
         "category": "Makanan Berat",
-        "author": "rasya"
-    },
-    {
-        "id": 10,
-        "title": "Ciki",
-        "description": "Ciki aja",
-        "ingredients": [
-            "bahan 1",
-            "bahan 2",
-            "bahan 3"
-        ],
-        "steps": [
-            "langkah 1",
-            "langkah 2",
-            "langka 3"
-        ],
-        "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 11,
-        "title": "blabla",
-        "description": "blabla",
-        "ingredients": [],
-        "steps": [],
-        "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 12,
-        "title": "a",
-        "description": "a",
-        "ingredients": [
-            "",
-            "",
-            ""
-        ],
-        "steps": [
-            "",
-            "",
-            ""
-        ],
-        "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 13,
-        "title": "a",
-        "description": "a",
-        "ingredients": [
-            "a",
-            "a",
-            "a"
-        ],
-        "steps": [
-            "1",
-            "2",
-            "3"
-        ],
-        "category": "Makanan Ringan",
-        "author": "rasya"
-    },
-    {
-        "id": 14,
-        "title": "a",
-        "description": "b",
-        "ingredients": [
-            "1",
-            "2",
-            "3"
-        ],
-        "steps": [
-            "a",
-            "c",
-            "d"
-        ],
-        "category": "Makanan Ringan",
         "author": "rasya"
     }
 ]

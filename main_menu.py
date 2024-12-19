@@ -1,4 +1,4 @@
-from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, load_recipes
+from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, load_recipes, json, os
 
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
@@ -52,6 +52,58 @@ def user_menu(user):
                     print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
                     print(f"Kategori: {selected_recipe['category']}")
+
+                    #Menampilkan penilaian rata-rata jika ada
+                    if "nilai" in selected_recipe and selected_recipe["nilai"]:
+                        rata_rata_nilai = sum(selected_recipe["nilai"]) / len(selected_recipe["nilai"])
+                        print(f"Penilaian rata-rata: {rata_rata_nilai} dari {len(selected_recipe["nilai"])} penilaian")
+                    else:
+                        print("Belum ada penilaian untuk resep ini")
+                    
+                    #Menampilkan ulasan jika ada
+                    if "ulasan" in selected_recipe and selected_recipe["ulasan"]:
+                        print("\nUlasan pengguna:")
+                        for komentar in selected_recipe["ulasan"]:
+                            print(f"-{komentar}")
+                    else:
+                        print("Belum ada ulasan untuk resep ini")
+                    
+                    #Function untuk menambah nilai
+                    def add_nilai():
+                        nilai = int(input("Berikan penilaian untuk resep ini (1-5): "))
+                        if 1<= nilai <= 5:
+                            selected_recipe.setdefault("nilai", []).append(nilai)
+                            print("Nilai berhasil ditambahkan")
+                            return True                           
+                        else:
+                            print("Nilai harus dalam rentang 1-5")
+                            return False
+                    #Function untuk menambah ulasan
+                    def add_ulasan():
+                        ulasan = input("Tuliskan ulasan Anda: ").strip()
+                        if not ulasan:
+                            print("Ulasan tidak boleh kosong")
+                            return False
+                        else:
+                            selected_recipe.setdefault("ulasan", []).append(ulasan)
+                            print("Ulasan berhasil ditambahkan")
+                            return True
+
+                    #Menambahkan nilai pada resep
+                    memberi_nilai = input("\nApakah Anda ingin memberikan penilaian pada resep ini? (y/n): ")
+                    if memberi_nilai.lower() == "y":
+                        add_nilai()
+                    
+                    #Menambahkan ulasan pada resep
+                    memberi_ulasan = input("Apakah Anda ingin memberikan ulasan pada resep ini? (y/n): ")
+                    if memberi_ulasan.lower() == "y":
+                        add_ulasan()
+
+                    # Menyimpan perubahan ke file JSON
+                    with open("recipes.json", "w") as file:
+                        json.dump(recipes, file, indent=4)
+                    print("Data berhasil diperbarui.")
+
                 except ValueError:
                     print("Pilihan tidak valid!")
             except ValueError:
