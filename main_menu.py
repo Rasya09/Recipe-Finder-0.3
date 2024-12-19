@@ -46,16 +46,41 @@ def chef_menu(user):
     while True:
         print(f"\n=== Main Menu, Halo Selamat Datang Chef {user['username']} ===")
         print("1. Tambahkan Resep Baru")
-        print("2. Lihat Resep Saya")
-        print("3. Edit Resep")
-        print("4. Hapus Resep") 
-        print("5. Logout")
+        print("2. Lihat Resep Keseluruhan")
+        print("3. Lihat Resep Saya")
+        print("4. Edit Resep")
+        print("5. Hapus Resep") 
+        print("6. Logout")
 
-        pilihan = input("Pilih menu (1/2/3/4/5): ")
+        pilihan = input("Pilih menu (1/2/3/4/5/6): ")
 
         if pilihan == '1':
             add_recipe(user)  # Panggil fungsi untuk menambahkan resep
         elif pilihan == '2':
+            recipes = load_recipes()
+            if not recipes:
+                print("Belum ada resep yang tersedia.")
+            else:
+                print("Resep yang tersedia:")
+                for i, recipe in enumerate(recipes, 1):
+                    print(f"{i}. {recipe['title']} oleh {recipe['author']}")  # Menampilkan judul resep dan pembuat
+
+                try:
+                    selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(recipes):
+                        print("Pilihan tidak valid!")
+                        continue
+
+                    selected_recipe = recipes[selected_recipe_index]
+                    print("\nDetail Resep:")
+                    print(f"Judul: {selected_recipe['title']}")
+                    print(f"Deskripsi: {selected_recipe['description']}")
+                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Dibuat oleh: {selected_recipe['author']}")
+                except ValueError:
+                    print("Pilihan tidak valid!")
+        elif pilihan == '3':
             my_recipes = [recipe for recipe in load_recipes() if recipe['author'] == user['username']]
             if not my_recipes:
                 print("Anda belum memiliki resep.")
@@ -78,11 +103,11 @@ def chef_menu(user):
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
                 except ValueError:
                     print("Pilihan tidak valid!")
-        elif pilihan == '3':
-            edit_recipe(user)  # Panggil fungsi untuk mengedit resep
         elif pilihan == '4':
-            delete_recipe(user)  # Panggil fungsi untuk menghapus resep
+            edit_recipe(user)  # Panggil fungsi untuk mengedit resep
         elif pilihan == '5':
+            delete_recipe(user)  # Panggil fungsi untuk menghapus resep
+        elif pilihan == '6':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:
