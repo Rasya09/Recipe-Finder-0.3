@@ -1,10 +1,11 @@
-from auth_app import register, login, add_recipe, edit_recipe, delete_recipe, load_recipes, json, os
+from auth_app import register, login, json
+from resep import add_recipe, edit_recipe, delete_recipe, load_recipes, os
 
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
     while True:
         print(f"\n=== Main Menu, Halo selamat datang {user['username']} ===")
-        print("1. Lihat Resep")
+        print("1. Lihat Resep Berdasarkan Kategori")
         print("2. Favoritkan Resep")
         print("3. Logout")
 
@@ -17,7 +18,7 @@ def user_menu(user):
                 continue
 
             # Daftar kategori yang tersedia
-            categories = ["Makanan Ringan", "Makanan Berat", "Makanan Penutup", "Makanan Pembuka", "Cemilan", "Minuman"]
+            categories = ["Makanan Ringan", "Makanan Berat", "Makanan Penutup", "Makanan Pembuka", "Minuman"]
             print("\nPilih kategori resep yang ingin dilihat:")
             for i, category in enumerate(categories, 1):
                 print(f"{i}. {category}")

@@ -1,30 +1,16 @@
 [
     {
         "id": 1,
-        "username": "Rasya Alfiano ",
-        "email": "rasya@gmail.com",
-        "password": "12345678",
+        "username": "rasya",
+        "email": "r@gmail.com",
+        "password": "$2b$12$0baa8DureLQMZZZa0AS66e8vnRQTSge8WjogrABjpifHJxQkZGpke",
         "role": "Chef"
     },
     {
         "id": 2,
-        "username": "Ikbal Miftahudin",
-        "email": "ikbal@gmail.com",
-        "password": "12345678",
-        "role": "User"
-    },
-    {
-        "id": 3,
-        "username": "Yusar Yusup",
-        "email": "yusar@gmail.com",
-        "password": "12345678",
-        "role": "Chef"
-    },
-    {
-        "id": 6,
-        "username": "b",
-        "email": "b@gmail.com",
-        "password": "$2b$12$s3WGUJYPaBx6DB/bPoiStuVvk5Bvz32aHkcgxE9/24Xr9MbbHEley",
+        "username": "siapa",
+        "email": "s@gmail.com",
+        "password": "$2b$12$evki.ZAwSAB0qmHhYdqGneuLAx2JmYaZbnd.1k0UmCLXW8IbFIeG6",
         "role": "User"
     }
 ]

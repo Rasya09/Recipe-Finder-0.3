@@ -1,77 +1,260 @@
-[
-    {
+[{
         "id": 1,
-        "title": "Nasi Goreng Spesial",
-        "description": "Nasi goreng spesial ini adalah pilihan sempurna untuk makan siang atau malam. Perpaduan bumbu yang gurih dan tambahan topping seperti telur mata sapi dan ayam suwir menjadikannya istimewa. Resep ini mudah dibuat dan cocok untuk segala suasana.",
+        "title": "Cemilfood",
+        "description": "Makanan ringan yang enak dan renyah.",
         "ingredients": [
-            "2 piring nasi putih (dinginkan terlebih dahulu)",
-            "2 butir telur ayam",
-            "150 gram ayam suwir (bisa menggunakan ayam goreng atau rebus)",
-            "3 sdm kecap manis",
-            "1 sdm saus tiram",
-            "2 sdm minyak goreng",
-            "3 siung bawang putih (cincang halus)",
-            "1 buah cabai merah besar (iris tipis)",
-            "selesai"
+            "Bahan 1",
+            "Bahan 2",
+            "Bahan 3"
         ],
         "steps": [
-            "Panaskan minyak di wajan. Tumis bawang putih dan bawang merah hingga harum.",
-            "Masukkan cabai merah dan ayam suwir, aduk hingga tercampur rata.",
-            "Pecahkan telur di tengah wajan, orak-arik hingga matang.",
-            "Masukkan nasi putih dingin, aduk rata dengan bahan-bahan di wajan.",
-            "Tambahkan kecap manis, saus tiram, garam, dan merica. Aduk hingga nasi berwarna merata dan bumbu meresap.",
-            "Masukkan daun bawang, aduk sebentar, lalu matikan api.",
-            "Sajikan nasi goreng di piring, tambahkan telur mata sapi di atasnya. Lengkapi dengan kerupuk sebagai pelengkap."
+            "Langkah 1",
+            "Langkah 2",
+            "Langkah 3"
         ],
-        "author": "Rasya Alfiano "
+        "category": "Makanan Ringan",
+        "author": "Rasya",
+        "ulasan": [
+            "Terimakasih"
+        ],
+        "nilai": [
+            5,
+            5,
+            4
+        ]
     },
     {
         "id": 2,
-        "title": "Ayam Goreng Madu Pedas",
-        "description": "Ayam goreng madu pedas ini adalah kombinasi sempurna antara manisnya madu dan pedasnya cabai. Cocok dijadikan lauk utama atau camilan saat berkumpul bersama keluarga. Teksturnya renyah di luar, tetapi tetap juicy di dalam.",
+        "title": "Kue Lapis Manis",
+        "description": "Kue lapis dengan tekstur lembut dan manis.",
         "ingredients": [
-            "500 gram ayam potong kecil (sayap atau paha)",
-            "1 sdm air jeruk nipis",
-            "1 sdt garam",
-            "\u00bd sdt merica bubuk",
-            "3 sdm tepung terigu",
-            "2 sdm tepung maizena",
-            "Minyak untuk menggoreng"
+            "200 gram tepung beras",
+            "100 gram gula pasir",
+            "200 ml santan"
         ],
         "steps": [
-            "Lumuri ayam dengan air jeruk nipis, garam, dan merica. Diamkan selama 15 menit agar bumbu meresap.",
-            "Campur tepung terigu dan maizena. Gulingkan ayam hingga terbalut rata.",
-            "Panaskan minyak, goreng ayam hingga matang dan renyah. Angkat dan tiriskan.",
-            "Lelehkan margarin di wajan, tumis bawang putih hingga harum.",
-            "Masukkan irisan cabai merah, madu, saus cabai, saus tomat, dan saus tiram. Aduk rata.",
-            "Masukkan ayam goreng ke dalam saus, aduk hingga semua bagian ayam terbalut saus dengan sempurna.",
-            "Sajikan ayam goreng madu pedas di atas piring, taburi dengan irisan daun bawang atau wijen panggang jika suka."
+            "Campurkan semua bahan hingga rata.",
+            "Tuang adonan lapis demi lapis ke loyang.",
+            "Kukus hingga matang."
         ],
-        "author": "Yusar Yusup"
+        "category": "Makanan Ringan",
+        "author": "Dita",
+        "ulasan": [
+            "Rasanya lembut",
+            "Manisnya pas"
+        ],
+        "nilai": [
+            5,
+            4,
+            4
+        ]
     },
     {
         "id": 3,
-        "title": "b",
-        "description": "b",
+        "title": "Martabak Mini",
+        "description": "Martabak manis dengan ukuran mini.",
         "ingredients": [
-            "b",
-            "a",
-            "c"
+            "100 gram tepung terigu",
+            "1 butir telur",
+            "50 ml susu cair"
         ],
         "steps": [
-            "a",
-            "2",
-            "3"
+            "Campur tepung, telur, dan susu.",
+            "Tuang adonan ke cetakan martabak mini.",
+            "Tambahkan topping sesuai selera."
         ],
         "category": "Makanan Ringan",
-        "author": "Rasya Alfiano ",
+        "author": "Yusuf",
+        "ulasan": [
+            "Enak banget!",
+            "Anak-anak suka"
+        ],
         "nilai": [
             5,
+            5,
             5
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Donat Kentang",
+        "description": "Donat empuk dengan campuran kentang.",
+        "ingredients": [
+            "200 gram tepung terigu",
+            "100 gram kentang rebus",
+            "1 sdm gula"
         ],
+        "steps": [
+            "Campur tepung, kentang, dan gula.",
+            "Bentuk adonan menjadi donat.",
+            "Goreng hingga keemasan."
+        ],
+        "category": "Makanan Ringan",
+        "author": "Mira",
         "ulasan": [
-            "Makanan ini sangat enak",
-            "mantap"
+            "Empuk sekali",
+            "Manisnya pas"
+        ],
+        "nilai": [
+            5,
+            5,
+            4
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Roti Bakar Cokelat",
+        "description": "Roti bakar dengan isian cokelat lezat.",
+        "ingredients": [
+            "2 lembar roti tawar",
+            "1 sdm selai cokelat",
+            "Mentega secukupnya"
+        ],
+        "steps": [
+            "Olesi roti dengan selai cokelat.",
+            "Panggang roti di atas wajan.",
+            "Sajikan selagi hangat."
+        ],
+        "category": "Makanan Ringan",
+        "author": "Sari",
+        "ulasan": [
+            "Cokelatnya lumer",
+            "Enak dinikmati pagi hari"
+        ],
+        "nilai": [
+            5,
+            4,
+            5
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Puding Cokelat",
+        "description": "Puding lembut dengan rasa cokelat yang kaya.",
+        "ingredients": [
+            "1 bungkus bubuk puding cokelat",
+            "500 ml susu cair",
+            "50 gram gula pasir"
+        ],
+        "steps": [
+            "Campur semua bahan dalam panci.",
+            "Masak sambil diaduk hingga mendidih.",
+            "Dinginkan di cetakan."
+        ],
+        "category": "Makanan Penutup",
+        "author": "Alya",
+        "ulasan": [
+            "Lembut dan manis",
+            "Anak-anak suka"
+        ],
+        "nilai": [
+            5,
+            5,
+            5
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Ayam Goreng Tepung",
+        "description": "Ayam goreng crispy dengan tepung gurih.",
+        "ingredients": [
+            "500 gram ayam potong",
+            "100 gram tepung terigu",
+            "Garam secukupnya"
+        ],
+        "steps": [
+            "Lumuri ayam dengan bumbu.",
+            "Baluri dengan tepung.",
+            "Goreng hingga keemasan."
+        ],
+        "category": "Makanan Berat",
+        "author": "Rafi",
+        "ulasan": [
+            "Gurih dan renyah",
+            "Enak disantap dengan nasi"
+        ],
+        "nilai": [
+            5,
+            4,
+            5
+        ]
+    },
+    {
+        "id": 8,
+        "title": "Es Buah Segar",
+        "description": "Es buah dengan berbagai macam potongan buah segar.",
+        "ingredients": [
+            "100 gram melon",
+            "100 gram semangka",
+            "50 ml sirup cocopandan"
+        ],
+        "steps": [
+            "Potong buah kecil-kecil.",
+            "Campur buah dengan sirup dan es batu.",
+            "Sajikan dalam mangkuk."
+        ],
+        "category": "Minuman",
+        "author": "Tita",
+        "ulasan": [
+            "Segar sekali!",
+            "Cocok untuk cuaca panas"
+        ],
+        "nilai": [
+            5,
+            5,
+            4
+        ]
+    },
+    {
+        "id": 9,
+        "title": "Bakwan Sayur",
+        "description": "Bakwan goreng dengan campuran sayuran segar.",
+        "ingredients": [
+            "100 gram kol",
+            "1 wortel",
+            "50 gram tepung terigu"
+        ],
+        "steps": [
+            "Campur semua bahan menjadi adonan.",
+            "Goreng adonan hingga kecokelatan.",
+            "Sajikan dengan saus sambal."
+        ],
+        "category": "Makanan Ringan",
+        "author": "Lina",
+        "ulasan": [
+            "Rasanya enak",
+            "Gurih dan renyah"
+        ],
+        "nilai": [
+            5,
+            4,
+            5
+        ]
+    },
+    {
+        "id": 10,
+        "title": "Soto Ayam",
+        "description": "Soto ayam dengan kuah gurih dan rempah khas.",
+        "ingredients": [
+            "500 gram ayam",
+            "2 liter air",
+            "2 batang serai"
+        ],
+        "steps": [
+            "Rebus ayam dengan bumbu.",
+            "Masak hingga kuah mendidih.",
+            "Sajikan dengan nasi dan sambal."
+        ],
+        "category": "Makanan Berat",
+        "author": "Rian",
+        "ulasan": [
+            "Kuahnya gurih",
+            "Daging ayamnya empuk"
+        ],
+        "nilai": [
+            5,
+            5,
+            5
         ]
     }
 ]
