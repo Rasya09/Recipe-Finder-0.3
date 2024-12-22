@@ -6,10 +6,11 @@ def user_menu(user):
     while True:
         print(f"\n=== Main Menu, Halo selamat datang {user['username']} ===")
         print("1. Lihat Resep Berdasarkan Kategori")
-        print("2. Favoritkan Resep")
-        print("3. Logout")
+        print("2. Lihat Resep Yang DiFavoritkan")
+        print("3. Rekomendasi Resep Berdasarkan Penilaian")
+        print("4. Logout")
 
-        pilihan = input("Pilih menu (1/2/3): ")
+        pilihan = input("Pilih menu (1/2/3/4): ")
 
         if pilihan == '1':
             recipes = load_recipes()
@@ -109,9 +110,48 @@ def user_menu(user):
                     print("Pilihan tidak valid!")
             except ValueError:
                 print("Masukkan angka yang sesuai untuk memilih kategori.")
+
         elif pilihan == '2':
             print("Menambahkan resep ke daftar favorit... (fitur belum diimplementasikan)")
+            
         elif pilihan == '3':
+            recipes = load_recipes()
+            if not recipes:
+                print("Belum ada resep yang tersedia.")
+                continue
+
+            # Mengurutkan resep berdasarkan total nilai tertinggi
+            ranked_recipes = sorted(
+                recipes,
+                key=lambda x: sum(x.get("nilai", [])),
+                reverse=True
+            )
+
+            print("\nRekomendasi Resep Berdasarkan Penilaian Tertinggi:")
+            for i, recipe in enumerate(ranked_recipes[:10], 1):
+                total_nilai = sum(recipe.get("nilai", []))
+                jumlah_nilai = len(recipe.get("nilai", []))
+                rata_rata = total_nilai / jumlah_nilai if jumlah_nilai > 0 else 0
+                print(f"{i}. {recipe['title']} - Rata-rata Nilai: {rata_rata:.2f} ({jumlah_nilai} penilaian)")
+
+            try:
+                selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                if selected_recipe_index < 0 or selected_recipe_index >= len(ranked_recipes[:5]):
+                    print("Pilihan tidak valid!")
+                    continue
+
+                selected_recipe = ranked_recipes[selected_recipe_index]
+                print("\nDetail Resep:")
+                print(f"Judul: {selected_recipe['title']}")
+                print(f"Deskripsi: {selected_recipe['description']}")
+                print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                print(f"Kategori: {selected_recipe['category']}")
+                print(f"Rata-rata Penilaian: {rata_rata:.2f}")
+
+            except ValueError:
+                print("Masukkan angka yang valid untuk memilih resep.")
+        elif pilihan == '4':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:
