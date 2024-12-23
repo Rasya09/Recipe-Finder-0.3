@@ -12,6 +12,12 @@ def load_recipes():
     with open(RECIPES_FILE, 'r') as file:
         return json.load(file)
 
+def search_recipe(keyword):
+    recipes = load_recipes()
+    # Menggunakan list comprehension untuk mencari resep yang judul atau deskripsi mengandung keyword
+    results = [recipe for recipe in recipes if keyword.lower() in recipe['title'].lower() or keyword.lower() in recipe['description'].lower()]
+    return results
+
 # Fungsi menyimpan data resep ke file JSON
 def save_recipes(data):
     with open(RECIPES_FILE, 'w') as file:
