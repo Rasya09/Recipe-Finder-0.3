@@ -1,5 +1,5 @@
 from auth_app import register, login, json
-from resep import add_recipe, edit_recipe, delete_recipe, load_recipes, os
+from resep import add_recipe, edit_recipe, delete_recipe, load_recipes, search_recipe, os
 
 # Fungsi menu untuk pengguna dengan role User
 def user_menu(user):
@@ -8,17 +8,17 @@ def user_menu(user):
         print("1. Lihat Resep Berdasarkan Kategori")
         print("2. Lihat Resep Yang DiFavoritkan")
         print("3. Rekomendasi Resep Berdasarkan Penilaian")
-        print("4. Logout")
+        print("4. Cari Resep")
+        print("5. Logout")
 
-        pilihan = input("Pilih menu (1/2/3/4): ")
+        pilihan = input("Pilih menu (1/2/3/4/5): ")
+
 
         if pilihan == '1':
             recipes = load_recipes()
             if not recipes:
                 print("Belum ada resep yang tersedia.")
                 continue
-
-            # Daftar kategori yang tersedia
             categories = ["Makanan Ringan", "Makanan Berat", "Makanan Penutup", "Makanan Pembuka", "Minuman"]
             print("\nPilih kategori resep yang ingin dilihat:")
             for i, category in enumerate(categories, 1):
@@ -55,22 +55,19 @@ def user_menu(user):
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
                     print(f"Kategori: {selected_recipe['category']}")
 
-                    #Menampilkan penilaian rata-rata jika ada
                     if "nilai" in selected_recipe and selected_recipe["nilai"]:
                         rata_rata_nilai = sum(selected_recipe["nilai"]) / len(selected_recipe["nilai"])
-                        print(f"Penilaian rata-rata: {rata_rata_nilai} dari {len(selected_recipe["nilai"])} penilaian")
+                        print(f"Penilaian rata-rata: {rata_rata_nilai} dari {len(selected_recipe['nilai'])} penilaian")
                     else:
                         print("Belum ada penilaian untuk resep ini")
                     
-                    #Menampilkan ulasan jika ada
                     if "ulasan" in selected_recipe and selected_recipe["ulasan"]:
                         print("\nUlasan pengguna:")
                         for komentar in selected_recipe["ulasan"]:
                             print(f"-{komentar}")
                     else:
                         print("Belum ada ulasan untuk resep ini")
-                    
-                    #Function untuk menambah nilai
+                        #Function untuk menambah nilai
                     def add_nilai():
                         nilai = int(input("Berikan penilaian untuk resep ini (1-5): "))
                         if 1<= nilai <= 5:
@@ -152,6 +149,49 @@ def user_menu(user):
             except ValueError:
                 print("Masukkan angka yang valid untuk memilih resep.")
         elif pilihan == '4':
+            keyword = input("Masukkan kata kunci pencarian: ").strip()
+            if not keyword:
+                print("Kata kunci tidak boleh kosong!")
+                continue
+
+            # Mencari resep berdasarkan kata kunci
+            search_results = search_recipe(keyword)
+            if not search_results:
+                print("Tidak ada resep yang ditemukan.")
+            else:
+                print("\nHasil Pencarian:")
+                for i, recipe in enumerate(search_results, 1):
+                    print(f"{i}. {recipe['title']} oleh {recipe['author']}")
+                try:
+                    selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(search_results):
+                        print("Pilihan tidak valid!")
+                        continue
+
+                    selected_recipe = search_results[selected_recipe_index]
+                    print("\nDetail Resep:")
+                    print(f"Judul: {selected_recipe['title']}")
+                    print(f"Deskripsi: {selected_recipe['description']}")
+                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Kategori: {selected_recipe['category']}")
+
+                    if "nilai" in selected_recipe and selected_recipe["nilai"]:
+                        rata_rata_nilai = sum(selected_recipe["nilai"]) / len(selected_recipe["nilai"])
+                        print(f"Penilaian rata-rata: {rata_rata_nilai} dari {len(selected_recipe['nilai'])} penilaian")
+                    else:
+                        print("Belum ada penilaian untuk resep ini")
+                    
+                    if "ulasan" in selected_recipe and selected_recipe["ulasan"]:
+                        print("\nUlasan pengguna:")
+                        for komentar in selected_recipe["ulasan"]:
+                            print(f"-{komentar}")
+                    else:
+                        print("Belum ada ulasan untuk resep ini")
+
+                except ValueError:
+                    print("Pilihan tidak valid!")
+        elif pilihan == '5':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:
@@ -166,10 +206,11 @@ def chef_menu(user):
         print("2. Lihat Resep Keseluruhan")
         print("3. Lihat Resep Saya")
         print("4. Edit Resep")
-        print("5. Hapus Resep") 
-        print("6. Logout")
+        print("5. Hapus Resep")
+        print("6. Cari Resep")  # Menu untuk pencarian resep
+        print("7. Logout")
 
-        pilihan = input("Pilih menu (1/2/3/4/5/6): ")
+        pilihan = input("Pilih menu (1/2/3/4/5/6/7): ")
 
         if pilihan == '1':
             add_recipe(user)  # Panggil fungsi untuk menambahkan resep
@@ -225,11 +266,44 @@ def chef_menu(user):
             edit_recipe(user)  # Panggil fungsi untuk mengedit resep
         elif pilihan == '5':
             delete_recipe(user)  # Panggil fungsi untuk menghapus resep
-        elif pilihan == '6':
+        elif pilihan == '6':  # Fitur pencarian resep
+            keyword = input("Masukkan kata kunci pencarian: ").strip()
+            if not keyword:
+                print("Kata kunci tidak boleh kosong!")
+                continue
+
+            # Mencari resep berdasarkan kata kunci
+            recipes = load_recipes()
+            search_results = [recipe for recipe in recipes if keyword.lower() in recipe['title'].lower() or keyword.lower() in recipe['description'].lower()]
+
+            if not search_results:
+                print("Tidak ada resep yang ditemukan.")
+            else:
+                print("\nHasil Pencarian:")
+                for i, recipe in enumerate(search_results, 1):
+                    print(f"{i}. {recipe['title']} oleh {recipe['author']}")
+
+                try:
+                    selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
+                    if selected_recipe_index < 0 or selected_recipe_index >= len(search_results):
+                        print("Pilihan tidak valid!")
+                        continue
+
+                    selected_recipe = search_results[selected_recipe_index]
+                    print("\nDetail Resep:")
+                    print(f"Judul: {selected_recipe['title']}")
+                    print(f"Deskripsi: {selected_recipe['description']}")
+                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Dibuat oleh: {selected_recipe['author']}")
+                except ValueError:
+                    print("Pilihan tidak valid!")
+        elif pilihan == '7':
             print("Logout berhasil. Kembali ke menu utama.")
             break
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")
+
 
 # Fungsi menu utama
 def main_menu():
