@@ -1,0 +1,29 @@
+{
+    "siapa": [
+        {
+            "id": 1,
+            "title": "Cemilfood",
+            "description": "Makanan ringan yang enak dan renyah.",
+            "ingredients": [
+                "Bahan 1",
+                "Bahan 2",
+                "Bahan 3"
+            ],
+            "steps": [
+                "Langkah 1",
+                "Langkah 2",
+                "Langkah 3"
+            ],
+            "category": "Makanan Ringan",
+            "author": "Rasya",
+            "ulasan": [
+                "Terimakasih"
+            ],
+            "nilai": [
+                5,
+                5,
+                4
+            ]
+        }
+    ]
+}

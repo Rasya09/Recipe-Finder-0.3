@@ -12,5 +12,12 @@
         "email": "s@gmail.com",
         "password": "$2b$12$evki.ZAwSAB0qmHhYdqGneuLAx2JmYaZbnd.1k0UmCLXW8IbFIeG6",
         "role": "User"
+    },
+    {
+        "id": 3,
+        "username": "ikbal",
+        "email": "ikbal@gmail.com",
+        "password": "$2b$12$oBqm/9M0wJCjLk9ZPWtFCuanQq8A9JBZfhXtkzEi.sF53intzuyoe",
+        "role": "User"
     }
 ]

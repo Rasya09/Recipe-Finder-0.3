@@ -2,7 +2,24 @@ from auth_app import register, login, json
 from resep import add_recipe, edit_recipe, delete_recipe, load_recipes, search_recipe, os
 
 # Fungsi menu untuk pengguna dengan role User
+# Fungsi untuk memuat data favorit dari file JSON
+def load_favorites():
+    try:
+        with open("favorites.json", "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+
+# Fungsi untuk menyimpan data favorit ke file JSON
+def save_favorites(favorites):
+    with open("favorites.json", "w") as file:
+        json.dump(favorites, file, indent=4)
+        
 def user_menu(user):
+    # Memuat data favorit untuk pengguna
+    favorites = load_favorites()
+    user_favorites = favorites.get(user['username'], [])
+
     while True:
         print(f"\n=== Main Menu, Halo selamat datang {user['username']} ===")
         print("1. Lihat Resep Berdasarkan Kategori")
@@ -12,7 +29,6 @@ def user_menu(user):
         print("5. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
-
 
         if pilihan == '1':
             recipes = load_recipes()
@@ -64,20 +80,22 @@ def user_menu(user):
                     if "ulasan" in selected_recipe and selected_recipe["ulasan"]:
                         print("\nUlasan pengguna:")
                         for komentar in selected_recipe["ulasan"]:
-                            print(f"-{komentar}")
+                            print(f"- {komentar}")
                     else:
                         print("Belum ada ulasan untuk resep ini")
-                        #Function untuk menambah nilai
+
+                    # Function untuk menambah nilai
                     def add_nilai():
                         nilai = int(input("Berikan penilaian untuk resep ini (1-5): "))
-                        if 1<= nilai <= 5:
+                        if 1 <= nilai <= 5:
                             selected_recipe.setdefault("nilai", []).append(nilai)
                             print("Nilai berhasil ditambahkan")
                             return True                           
                         else:
                             print("Nilai harus dalam rentang 1-5")
                             return False
-                    #Function untuk menambah ulasan
+
+                    # Function untuk menambah ulasan
                     def add_ulasan():
                         ulasan = input("Tuliskan ulasan Anda: ").strip()
                         if not ulasan:
@@ -88,28 +106,45 @@ def user_menu(user):
                             print("Ulasan berhasil ditambahkan")
                             return True
 
-                    #Menambahkan nilai pada resep
+                    # Menambahkan nilai pada resep
                     memberi_nilai = input("\nApakah Anda ingin memberikan penilaian pada resep ini? (y/n): ")
                     if memberi_nilai.lower() == "y":
                         add_nilai()
                     
-                    #Menambahkan ulasan pada resep
+                    # Menambahkan ulasan pada resep
                     memberi_ulasan = input("Apakah Anda ingin memberikan ulasan pada resep ini? (y/n): ")
                     if memberi_ulasan.lower() == "y":
                         add_ulasan()
 
+                    # Menambahkan resep ke daftar favorit
+                    favoritkan_resep = input("Apakah Anda ingin menambahkan resep ini ke daftar favorit? (y/n): ")
+                    if favoritkan_resep.lower() == "y" and selected_recipe not in user_favorites:
+                        user_favorites.append(selected_recipe)
+                        print("Resep berhasil ditambahkan ke daftar favorit!")
+
                     # Menyimpan perubahan ke file JSON
                     with open("recipes.json", "w") as file:
                         json.dump(recipes, file, indent=4)
+                    
+                    # Menyimpan daftar favorit ke file JSON
+                    favorites[user['username']] = user_favorites
+                    save_favorites(favorites)
+
                     print("Data berhasil diperbarui.")
 
                 except ValueError:
                     print("Pilihan tidak valid!")
             except ValueError:
-                print("Masukkan angka yang sesuai untuk memilih kategori.")
+                print("Masukkan nomor kategori yang valid!")
 
         elif pilihan == '2':
-            print("Menambahkan resep ke daftar favorit... (fitur belum diimplementasikan)")
+            # Menampilkan resep yang telah difavoritkan
+            if not user_favorites:
+                print("Anda belum memiliki resep yang difavoritkan.")
+            else:
+                print("\nResep yang Anda favoritkan:")
+                for i, recipe in enumerate(user_favorites, 1):
+                    print(f"{i}. {recipe['title']} oleh {recipe['author']}")
             
         elif pilihan == '3':
             recipes = load_recipes()
