@@ -19,5 +19,12 @@
         "email": "ikbal@gmail.com",
         "password": "$2b$12$oBqm/9M0wJCjLk9ZPWtFCuanQq8A9JBZfhXtkzEi.sF53intzuyoe",
         "role": "User"
+    },
+    {
+        "id": 4,
+        "username": "napa",
+        "email": "n@gmail.com",
+        "password": "$2b$12$gWeOXUnmK/Zm5xQEJg0q/OiCWPY52vctXQJu.pOT5dtI6nGzg5ZHK",
+        "role": "User"
     }
 ]

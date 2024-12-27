@@ -1,5 +1,5 @@
 {
-    "siapa": [
+    "ikbal": [
         {
             "id": 1,
             "title": "Cemilfood",
@@ -15,14 +15,43 @@
                 "Langkah 3"
             ],
             "category": "Makanan Ringan",
-            "author": "Rasya",
+            "author": "rasya",
             "ulasan": [
-                "Terimakasih"
+                "wow"
+            ],
+            "nilai": [
+                3,
+                5,
+                1
+            ]
+        }
+    ],
+    "siapa": [
+        {
+            "id": 10,
+            "title": "Soto Ayam",
+            "description": "Soto ayam dengan kuah gurih dan rempah khas.",
+            "ingredients": [
+                "500 gram ayam",
+                "2 liter air",
+                "2 batang serai"
+            ],
+            "steps": [
+                "Rebus ayam dengan bumbu.",
+                "Masak hingga kuah mendidih.",
+                "Sajikan dengan nasi dan sambal."
+            ],
+            "category": "Makanan Berat",
+            "author": "Rian",
+            "ulasan": [
+                "Kuahnya gurih",
+                "Daging ayamnya empuk"
             ],
             "nilai": [
                 5,
                 5,
-                4
+                5,
+                5
             ]
         }
     ]

@@ -14,14 +14,31 @@
             "Langkah 3"
         ],
         "category": "Makanan Ringan",
-        "author": "Rasya",
-        "ulasan": [
-            "Terimakasih"
-        ],
+        "author": "rasya",
         "nilai": [
+            3,
             5,
-            5,
-            4
+            1
+        ],
+        "user_nilai": [
+            {
+                "id": 4,
+                "username": "napa",
+                "nilai": 3
+            },
+            {
+                "id": 3,
+                "username": "ikbal",
+                "nilai": 1
+            },
+            {
+                "id": 2,
+                "username": "siapa",
+                "nilai": 1
+            }
+        ],
+        "ulasan": [
+            "wow"
         ]
     },
     {
@@ -43,11 +60,6 @@
         "ulasan": [
             "Rasanya lembut",
             "Manisnya pas"
-        ],
-        "nilai": [
-            5,
-            4,
-            4
         ]
     },
     {
@@ -104,7 +116,7 @@
     },
     {
         "id": 5,
-        "title": "Roti Bakar Cokelat",
+        "title": "Roti Bakar Coklat",
         "description": "Roti bakar dengan isian cokelat lezat.",
         "ingredients": [
             "2 lembar roti tawar",
@@ -130,7 +142,7 @@
     },
     {
         "id": 6,
-        "title": "Puding Cokelat",
+        "title": "Puding Coklat",
         "description": "Puding lembut dengan rasa cokelat yang kaya.",
         "ingredients": [
             "1 bungkus bubuk puding cokelat",
@@ -149,6 +161,7 @@
             "Anak-anak suka"
         ],
         "nilai": [
+            5,
             5,
             5,
             5
