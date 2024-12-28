@@ -26,5 +26,19 @@
         "email": "n@gmail.com",
         "password": "$2b$12$gWeOXUnmK/Zm5xQEJg0q/OiCWPY52vctXQJu.pOT5dtI6nGzg5ZHK",
         "role": "User"
+    },
+    {
+        "id": 5,
+        "username": "ayo",
+        "email": "a@gmail.com",
+        "password": "$2b$12$0.26VVSPCByu0GKK5Zkdp.n0Omfuop7TFV7zL7Ykpe68DrSqRLw12",
+        "role": "User"
+    },
+    {
+        "id": 6,
+        "username": "nah",
+        "email": "nah@gmail.com",
+        "password": "$2b$12$IpIOIwVEqbCBu/RgV93Sruz21tohlR2pLT8uFt/aGBMhh9XnSVTNi",
+        "role": "Chef"
     }
 ]

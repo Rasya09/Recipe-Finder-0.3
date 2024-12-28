@@ -5,7 +5,6 @@ import bcrypt
 # File JSON tempat menyimpan data pengguna
 DATA_FILE = 'users.json'
 
-
 # Fungsi memuat data dari file JSON
 def load_data():
     if not os.path.exists(DATA_FILE):
@@ -25,54 +24,65 @@ def generate_id(users):
         return 1
     return max(user['id'] for user in users) + 1
 
+def get_valid_username(text_form="Masukkan nama pengguna: "):
+    while True:
+        username = input(text_form).strip()
+        if username:
+            return username
+        print("Username tidak boleh kosong!")
+
 def validate_email(email):
     if not email.endswith("@gmail.com"):
         return False
     name_part = email.split("@")[0]
     return len(name_part) > 0
 
+def get_valid_email(text_form="Masukkan email: ", users=None, current_user_id=None):
+    while True:
+        email = input(text_form).strip()
+        if not email:
+            print("Email tidak boleh kosong!")
+            continue
+            
+        if not validate_email(email):
+            print("Email harus berformat @gmail.com dan memiliki nama!")
+            continue
+            
+        # Cek duplikasi email jika users list disediakan
+        if users is not None:
+            email_exists = any(u['email'] == email and u['id'] != current_user_id for u in users)
+            if email_exists:
+                print("Email sudah terdaftar! Silakan gunakan email lain.")
+                continue
+                
+        return email
+
+def get_valid_password(text_form="Masukkan password (minimal 8 karakter): "):
+    while True:
+        password = input(text_form).strip()
+        if not password:
+            print("Password tidak boleh kosong!")
+            continue
+            
+        if len(password) < 8:
+            print("Password harus minimal 8 karakter!")
+            continue
+            
+        return password
+    
 # Fungsi registrasi pengguna
 def register():
     print("\n=== Registrasi Pengguna ===")
     users = load_data()
 
-    # Input data pengguna
-    while True:
-        username = input("Masukkan username: ").strip()
-        if username:
-            break
-        print("Username tidak boleh kosong!")
-
-    while True:
-        email = input("Masukkan email: ").strip()
-        if email:
-            if validate_email(email):
-                break
-            else:
-                print("Email harus berformat @gmail.com dan memiliki nama!")
-        else:
-            print("Email tidak boleh kosong!")
-
-    # Cek apakah email sudah digunakan
-    for user in users:
-        if user['email'] == email:
-            print("Email sudah terdaftar! Silakan gunakan email lain.")
-            return
-
-    while True:
-        password = input("Masukkan password (minimal 8 karakter): ").strip()
-        if password:
-            if len(password) >= 8:
-                break
-            else:
-                print("Password harus minimal 8 karakter!")
-        else:
-            print("Password tidak boleh kosong!")
+    username = get_valid_username()
+    email = get_valid_email(users=users)
+    password = get_valid_password()
 
     # Hash password dengan bcrypt
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
-    # Pilih role antara user dan chef
+    # Pilih role
     while True:
         print("\nPilih Role:")
         print("1. User")
@@ -87,19 +97,15 @@ def register():
         else:
             print("Pilihan tidak valid! Pilih 1 atau 2.")
 
-    # Buat ID otomatis
     user_id = generate_id(users)
-
-    # Tambahkan pengguna ke dalam list
     users.append({
         "id": user_id,
         "username": username,
         "email": email,
-        "password": hashed_password.decode('utf-8'),  # Simpan dalam bentuk string
+        "password": hashed_password.decode('utf-8'),
         "role": role
     })
 
-    # Simpan data ke file JSON
     save_data(users)
     print("Registrasi berhasil! Anda dapat login sekarang.")
 

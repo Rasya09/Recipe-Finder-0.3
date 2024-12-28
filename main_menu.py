@@ -1,5 +1,6 @@
-from auth_app import register, login, json
-from resep import add_recipe, edit_recipe, delete_recipe, load_recipes, search_recipe, os
+import bcrypt
+from auth_app import get_valid_email, get_valid_password, get_valid_username, register, login, json
+from resep import add_recipe, load_recipes
 
 import json
 
@@ -15,6 +16,20 @@ def save_data(file_name, data):
     try:
         with open(file_name, 'w') as file:
             json.dump(data, file, indent=4)
+    except Exception as e:
+        print(f"Terjadi kesalahan saat menyimpan data: {e}")
+
+def load_users():
+    try:
+        with open("users.json", "r") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_users(users):
+    try:
+        with open("users.json", "w") as f:
+            json.dump(users, f, indent=4)
     except Exception as e:
         print(f"Terjadi kesalahan saat menyimpan data: {e}")
 
@@ -37,7 +52,8 @@ def user_menu(user):
         print("2. Lihat Resep Yang DiFavoritkan")
         print("3. Rekomendasi Resep")
         print("4. Cari Resep")
-        print("5. Logout")
+        print("5. Profile")
+        print("6. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
 
@@ -50,6 +66,8 @@ def user_menu(user):
         elif pilihan == '4':
             cari_resep(recipes)
         elif pilihan == '5':
+            user_profile_menu(user)
+        elif pilihan == '6':
             print("Logout berhasil. Sampai jumpa!")
             break
         else:
@@ -274,6 +292,95 @@ def tampilkan_detail_resep(recipe, user):
 
         else:
             print("Pilihan tidak valid. Silakan coba lagi.")
+
+#5. Fungsi untuk profil user
+def view_profile(user):
+    print(f"\n=== Profil ===")
+    print(f"Nama Pengguna: {user['username']}")
+    print(f"Email: {user['email']}")
+    print(f"Role: {user['role']}")
+
+def user_profile_menu(user):
+    favorites = load_favorites()
+    user_favorites = favorites.get(user['username'], [])
+    while True:
+        print(f"\n=== Profil Pengguna ===")
+        view_profile(user)
+        print("\nMenu:")
+        print("1. Edit Profil")
+        print("2. Lihat Resep Favorit")
+        print("3. Kembali ke Menu Utama")
+        pilihan = input("Pilih menu (1/2/3): ")
+        if pilihan == '1':
+            edit_profile(user)
+        elif pilihan == '2':
+            lihat_resep_favorit(user_favorites, favorites, user['username'])
+        elif pilihan == '3':
+            break
+        else:
+            print("Pilihan tidak valid.")
+
+def get_valid_role(prompt="Pilih Role:\n1. User\n2. Chef\nPilih (1/2): "):
+    while True:
+        role_input = input(prompt)
+        if role_input == '1':
+            return 'User'
+        elif role_input == '2':
+            return 'Chef'
+        else:
+            print("Pilihan tidak valid! Pilih 1 atau 2.")
+
+def edit_profile(user):
+    while True:
+        print("\nMenu Edit Profil:")
+        print("1. Edit Nama")
+        print("2. Edit Email")
+        print("3. Edit Password")
+        print("4. Edit Role")
+        print("5. Kembali ke Menu Sebelumnya")
+        pilihan = input("Pilih menu (1/2/3/4/5): ")
+
+        users = load_users()
+        user_index = next((i for i, u in enumerate(users) if u['id'] == user['id']), None)
+
+        if user_index is None:
+            print("Error: User tidak ditemukan")
+            return
+
+        if pilihan == '1':
+            new_name = get_valid_username()
+            user['username'] = new_name
+            users[user_index]['username'] = new_name
+            save_users(users)
+            print("Nama berhasil diperbarui.")
+                
+        elif pilihan == '2':
+            new_email = get_valid_email()
+            user['email'] = new_email
+            users[user_index]['email'] = new_email
+            save_users(users)
+            print("Email berhasil diperbarui.")
+                
+        elif pilihan == '3':
+            new_password = get_valid_password()
+            hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+            user['password'] = hashed_password.decode('utf-8')
+            users[user_index]['password'] = hashed_password.decode('utf-8')
+            save_users(users)
+            print("Password berhasil diperbarui.")
+
+        elif pilihan == '4':
+            print(f"\nRole saat ini: {user['role']}")
+            new_role = get_valid_role()
+            user['role'] = new_role
+            users[user_index]['role'] = new_role
+            save_users(users)
+            print("Role berhasil diperbarui.")
+                
+        elif pilihan == '5':
+            break
+        else:
+            print("Pilihan tidak valid.")
 
 # Fungsi menu untuk pengguna dengan role Chef
 def chef_menu(user):
