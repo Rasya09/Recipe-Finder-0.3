@@ -151,17 +151,37 @@ def rekomendasi_resep(recipes):
     for i, recipe in enumerate(ranked_recipes[:5], 1):
         rata_rata = sum(recipe.get("nilai", [])) / len(recipe.get("nilai", [])) if recipe.get("nilai") else 0
         print(f"{i}. {recipe['title']} - Rata-rata Nilai: {rata_rata:.2f}")
+    
+    while True:
+        pilihan = input("\nPilih nomor resep untuk melihat detailnya (1-5) atau tekan '0' untuk kembali ke menu utama: ")
+        
+        if pilihan == '0':
+            break
+        elif pilihan in [str(i) for i in range(1, 6)]:
+            index = int(pilihan) - 1
+            selected_recipe = ranked_recipes[index]
+            tampilkan_detail_resep(selected_recipe)
+        else:
+            print("Pilihan tidak valid. Silakan pilih nomor antara 1-5 atau 0 untuk kembali.")
 
 # 4. Cari Resep
 def cari_resep(recipes):
     keyword = input("Masukkan kata kunci untuk mencari resep: ").strip().lower()
-    found_recipes = [recipe for recipe in recipes if keyword in recipe['title'].lower()]
+    found_recipes = []
 
+    # Pencarian berdasarkan judul atau bahan
+    for recipe in recipes:
+        if keyword in recipe['title'].lower() or any(keyword in ingredient.lower() for ingredient in recipe.get('ingredients', [])):
+            found_recipes.append(recipe)
+
+    # Tampilkan hasil pencarian
     if found_recipes:
+        print("\nResep yang ditemukan:")
         for i, recipe in enumerate(found_recipes, 1):
             print(f"{i}. {recipe['title']}")
     else:
         print("Tidak ada resep yang cocok dengan kata kunci.")
+
 
 # Tampilkan Detail Resep
 def tampilkan_detail_resep(recipe, user):
@@ -355,11 +375,14 @@ def edit_profile(user):
             print("Nama berhasil diperbarui.")
                 
         elif pilihan == '2':
-            new_email = get_valid_email()
-            user['email'] = new_email
-            users[user_index]['email'] = new_email
-            save_users(users)
-            print("Email berhasil diperbarui.")
+            new_email = get_valid_email(users=users, current_user_id=user['id'])
+            if new_email != user['email']:  # Periksa jika email benar-benar berubah
+                user['email'] = new_email
+                users[user_index]['email'] = new_email
+                save_users(users)
+                print("Email berhasil diperbarui.")
+            else:
+                print("Email sama dengan yang sudah ada, tidak ada perubahan.")
                 
         elif pilihan == '3':
             new_password = get_valid_password()
