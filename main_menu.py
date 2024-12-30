@@ -60,15 +60,16 @@ def user_menu(user):
         if pilihan == '1':
             lihat_resep_berdasarkan_kategori(recipes, user)
         elif pilihan == '2':
-            lihat_resep_favorit(user_favorites, favorites, user['username'])
+            lihat_resep_favorit(user_favorites, favorites, user['username'], user)
         elif pilihan == '3':
-            rekomendasi_resep(recipes)
+            rekomendasi_resep(recipes, user)
         elif pilihan == '4':
             cari_resep(recipes)
         elif pilihan == '5':
             user_profile_menu(user)
         elif pilihan == '6':
             print("Logout berhasil. Sampai jumpa!")
+            main_menu()
             break
         else:
             print("Pilihan tidak valid. Silakan coba lagi.")
@@ -106,41 +107,36 @@ def lihat_resep_berdasarkan_kategori(recipes, user):
         print("Masukkan nomor yang valid!")
 
 # 2. Lihat Resep Favorit
-def lihat_resep_favorit(user_favorites, favorites, username):
+def lihat_resep_favorit(user_favorites, favorites, username, user):  # Tambahkan parameter user
     if not user_favorites:
         print("Anda belum memiliki resep yang difavoritkan.")
         return
 
-    for i, recipe in enumerate(user_favorites, 1):
-        print(f"{i}. {recipe['title']} oleh {recipe['author']}")
+    while True:
+        print("\n=== Resep Favorit ===")
+        for i, recipe in enumerate(user_favorites, 1):
+            print(f"{i}. {recipe['title']} oleh {recipe['author']}")
 
-    try:
-        selected_input = input("Pilih resep untuk melihat detail (masukkan nomor atau ketik 'keluar'): ").strip()
-        if selected_input.lower() == 'keluar':
-            return
+        try:
+            selected_input = input("\nPilih resep untuk melihat detail (masukkan nomor atau ketik 'keluar'): ").strip()
+            if selected_input.lower() == 'keluar':
+                return
 
-        selected_recipe_index = int(selected_input) - 1
-        if 0 <= selected_recipe_index < len(user_favorites):
-            recipe = user_favorites[selected_recipe_index]
-            print(f"\nJudul: {recipe['title']}")
-            print(f"Deskripsi: {recipe['description']}")
-            print(f"Bahan: {recipe['ingredients']}")
-            print(f"Langkah: {recipe['steps']}")
+            selected_recipe_index = int(selected_input) - 1
+            if 0 <= selected_recipe_index < len(user_favorites):
+                selected_recipe = user_favorites[selected_recipe_index]
+                
+                # Langsung menggunakan objek user yang diterima dari parameter
+                tampilkan_detail_resep(selected_recipe, user)
+                
+            else:
+                print("⚠️ Pilihan tidak valid!")
 
-            opsi = input("Hapus resep dari favorit? (y/n): ").strip().lower()
-            if opsi == 'y':
-                user_favorites.pop(selected_recipe_index)
-                favorites[username] = user_favorites
-                save_favorites(favorites)
-                print("Resep dihapus dari favorit.")
-        else:
-            print("Pilihan tidak valid!")
-
-    except ValueError:
-        print("Masukkan nomor yang valid!")
+        except ValueError:
+            print("⚠️ Masukkan nomor yang valid!")
 
 # 3. Rekomendasi Resep Berdasarkan Penilaian
-def rekomendasi_resep(recipes):
+def rekomendasi_resep(recipes, user):  # Tambahkan user sebagai parameter
     ranked_recipes = sorted(
         recipes,
         key=lambda x: sum(x.get("nilai", [])) / len(x.get("nilai", [])) if x.get("nilai") else 0,
@@ -160,7 +156,7 @@ def rekomendasi_resep(recipes):
         elif pilihan in [str(i) for i in range(1, 6)]:
             index = int(pilihan) - 1
             selected_recipe = ranked_recipes[index]
-            tampilkan_detail_resep(selected_recipe)
+            tampilkan_detail_resep(selected_recipe, user)
         else:
             print("Pilihan tidak valid. Silakan pilih nomor antara 1-5 atau 0 untuk kembali.")
 
@@ -186,102 +182,93 @@ def cari_resep(recipes):
 # Tampilkan Detail Resep
 def tampilkan_detail_resep(recipe, user):
     while True:
-        # Muat ulang data setiap kali loop untuk memastikan data terbaru
+        # Muat ulang data setiap iterasi
         recipes = load_data("recipes.json")
-        current_recipe = None
+        current_recipe = next((r for r in recipes if r['id'] == recipe['id']), None)
         
-        # Cari resep dalam data
-        for i, r in enumerate(recipes):
-            if r['id'] == recipe['id']:
-                current_recipe = recipes[i]
-                recipe_index = i
-                break
-                
         if not current_recipe:
-            print("Resep tidak ditemukan")
-            return
-            
-        # Pastikan properti 'nilai' dan 'user_nilai' ada
-        if 'nilai' not in current_recipe:
-            current_recipe['nilai'] = []
-        if 'user_nilai' not in current_recipe:
-            current_recipe['user_nilai'] = []
+            print("Resep tidak ditemukan.")
+            return False
+        
+        # Pastikan properti yang dibutuhkan ada
+        current_recipe.setdefault('nilai', [])
+        current_recipe.setdefault('user_nilai', [])
+        current_recipe.setdefault('ulasan', [])
 
         # Cek apakah user sudah menilai resep
         user_already_rated = any(u['id'] == user['id'] for u in current_recipe['user_nilai'])
 
-        print(f"\nJudul: {current_recipe['title']}")
-        print(f"Deskripsi: {current_recipe['description']}")
-        print(f"Bahan: {', '.join(current_recipe['ingredients'])}")
-        print(f"Langkah: {', '.join(current_recipe['steps'])}")
-
+        print(f"\n=== Detail Resep ===")
+        print(f"📌 Judul: {current_recipe['title']}")
+        print(f"📖 Deskripsi: {current_recipe['description']}")
+        print(f"🥗 Bahan:")
+        for i, bahan in enumerate(current_recipe['ingredients'], start=1):
+            print(f"   {i}. {bahan}")
+        print(f"👨‍🍳 Langkah:")
+        for i, langkah in enumerate(current_recipe['steps'], start=1):
+            print(f"   {i}. {langkah}")
+        
         if current_recipe['nilai']:
             rata_rata = sum(current_recipe['nilai']) / len(current_recipe['nilai'])
-            print(f"Rata-rata Penilaian: {rata_rata:.2f}")
+            print(f"⭐ Rata-rata Penilaian: {rata_rata:.2f}")
 
-        print("\nPilih Opsi:")
-        if user_already_rated:
-            print("1. Ubah nilai untuk resep ini")
-        else:
-            print("1. Memberikan nilai untuk resep ini")
-        print("2. Memberikan ulasan/komentar untuk resep ini")
-        print("3. Menambahkan resep ini ke daftar favorit")
-        print("4. Keluar ke menu utama")
-
+        # Opsi untuk pengguna
+        print("\n🔑 Pilih Opsi:")
+        print("1. Ubah/Masukkan nilai untuk resep ini" if user_already_rated else "1. Berikan nilai untuk resep ini")
+        print("2. Tambahkan ulasan untuk resep ini")
+        print("3. Tambahkan ke daftar favorit")
+        print("4. Kembali ke menu utama")
+        
         opsi = input("Pilih opsi (1/2/3/4): ").strip()
 
-        if opsi == '1':
+        if opsi == '1':  
+            # Memberi atau memperbarui nilai
             try:
-                nilai = int(input("Beri nilai (1-5): "))
+                nilai = int(input("🎯 Masukkan nilai (1-5): "))
                 if 1 <= nilai <= 5:
                     if user_already_rated:
-                        # Ubah nilai pengguna yang sudah ada
                         for u in current_recipe['user_nilai']:
                             if u['id'] == user['id']:
-                                # Hapus nilai lama dari array nilai
-                                old_rating_index = current_recipe['user_nilai'].index(u)
-                                if old_rating_index < len(current_recipe['nilai']):
-                                    current_recipe['nilai'].pop(old_rating_index)
-                                # Update nilai user
+                                current_recipe['nilai'].remove(u['nilai'])
                                 u['nilai'] = nilai
-                                # Tambahkan nilai baru ke array nilai
                                 current_recipe['nilai'].append(nilai)
-                                print("Nilai berhasil diperbarui!")
+                                print("✅ Nilai berhasil diperbarui!")
                                 break
                     else:
-                        # Tambahkan nilai baru
                         current_recipe['user_nilai'].append({
-                            'id': user['id'], 
-                            'username': user['username'], 
+                            'id': user['id'],
+                            'username': user['username'],
                             'nilai': nilai
                         })
                         current_recipe['nilai'].append(nilai)
-                        print("Nilai berhasil ditambahkan!")
-                    
-                    # Update recipe dalam array recipes
-                    recipes[recipe_index] = current_recipe
+                        print("✅ Nilai berhasil ditambahkan!")
+
                     save_data("recipes.json", recipes)
                 else:
-                    print("Nilai harus antara 1 dan 5.")
+                    print("⚠️ Nilai harus antara 1 dan 5.")
             except ValueError:
-                print("Masukkan angka yang valid!")
+                print("⚠️ Harap masukkan angka yang valid.")
 
-        elif opsi == '2':
-            ulasan = input("Tulis ulasan Anda: ")
-            current_recipe.setdefault('ulasan', []).append(ulasan)
-            recipes[recipe_index] = current_recipe
-            save_data("recipes.json", recipes)
-            print("Ulasan berhasil ditambahkan!")
+        elif opsi == '2':  
+            # Memberikan ulasan
+            ulasan = input("💬 Tulis ulasan Anda: ").strip()
+            if ulasan:
+                current_recipe['ulasan'].append({
+                    'id': user['id'],
+                    'username': user['username'],
+                    'ulasan': ulasan
+                })
+                save_data("recipes.json", recipes)
+                print("✅ Ulasan berhasil ditambahkan!")
+            else:
+                print("⚠️ Ulasan tidak boleh kosong.")
 
-        elif opsi == '3':
+        elif opsi == '3':  
+            # Tambahkan ke favorit
             favorites = load_favorites()
             user_favorites = favorites.get(user['username'], [])
             
-            # Cek apakah resep sudah ada di favorit berdasarkan ID
-            recipe_exists = any(fav.get('id') == current_recipe['id'] for fav in user_favorites)
-            
-            if not recipe_exists:
-                # Tambahkan seluruh data resep ke favorit
+            if not any(fav['id'] == current_recipe['id'] for fav in user_favorites):
                 favorite_recipe = {
                     'id': current_recipe['id'],
                     'title': current_recipe['title'],
@@ -292,26 +279,27 @@ def tampilkan_detail_resep(recipe, user):
                     'author': current_recipe['author']
                 }
                 
-                # Tambahkan ulasan jika ada
                 if 'ulasan' in current_recipe:
                     favorite_recipe['ulasan'] = current_recipe['ulasan']
-                
-                # Tambahkan nilai jika ada
                 if 'nilai' in current_recipe:
                     favorite_recipe['nilai'] = current_recipe['nilai']
                 
                 user_favorites.append(favorite_recipe)
                 favorites[user['username']] = user_favorites
                 save_favorites(favorites)
-                print("Resep ditambahkan ke favorit.")
+                print("✅ Resep berhasil ditambahkan ke favorit!")
             else:
-                print("Resep sudah ada di daftar favorit.")
+                print("⚠️ Resep sudah ada di daftar favorit.")
 
-        elif opsi == '4':
-            break
+        elif opsi == '4':  
+            # Kembali ke menu utama
+            print("🔙 Kembali ke menu utama...")
+            user_menu(user)
+            # break
+            # return True
 
         else:
-            print("Pilihan tidak valid. Silakan coba lagi.")
+            print("⚠️ Pilihan tidak valid. Silakan coba lagi.")
 
 #5. Fungsi untuk profil user
 def view_profile(user):
@@ -331,12 +319,22 @@ def user_profile_menu(user):
         print("2. Lihat Resep Favorit")
         print("3. Kembali ke Menu Utama")
         pilihan = input("Pilih menu (1/2/3): ")
+        
         if pilihan == '1':
-            edit_profile(user)
+            result = edit_profile(user)
+            if result == "role_changed":
+                if user['role'] == 'Chef':
+                    print("\nAnda telah berganti role menjadi Chef. Mengalihkan ke menu Chef...")
+                    chef_menu(user)
+                    return  # Keluar dari profile_menu dan kembali ke main_menu
+                elif user['role'] == 'User':
+                    print("\nAnda telah berganti role menjadi User. Mengalihkan ke menu User...")
+                    user_menu(user)
+                    return  # Keluar dari profile_menu dan kembali ke main_menu
         elif pilihan == '2':
             lihat_resep_favorit(user_favorites, favorites, user['username'])
         elif pilihan == '3':
-            break
+            return  # Kembali ke menu sebelumnya
         else:
             print("Pilihan tidak valid.")
 
@@ -394,11 +392,14 @@ def edit_profile(user):
 
         elif pilihan == '4':
             print(f"\nRole saat ini: {user['role']}")
+            old_role = user['role']
             new_role = get_valid_role()
-            user['role'] = new_role
-            users[user_index]['role'] = new_role
-            save_users(users)
-            print("Role berhasil diperbarui.")
+            if new_role != old_role:
+                user['role'] = new_role
+                users[user_index]['role'] = new_role
+                save_users(users)
+                print(f"Role berhasil diubah dari {old_role} menjadi {new_role}")
+                return "role_changed"
                 
         elif pilihan == '5':
             break
@@ -412,10 +413,10 @@ def chef_menu(user):
         print("1. Tambahkan Resep Baru")
         print("2. Lihat Resep Keseluruhan")
         print("3. Lihat Resep Saya")
-        # print("4. Edit Resep")
-        # print("5. Hapus Resep")
         print("4. Cari Resep")
-        print("5. Logout")
+        print("5. Profile")
+        # print("5. Hapus Resep")
+        print("6. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
 
@@ -471,8 +472,6 @@ def chef_menu(user):
                     print("Pilihan tidak valid!")
         # elif pilihan == '4':
         #     edit_recipe(user)
-        # elif pilihan == '5':
-        #     delete_recipe(user)
         elif pilihan == '4':  # Fitur pencarian resep
             keyword = input("Masukkan kata kunci pencarian: ").strip()
             if not keyword:
@@ -513,7 +512,10 @@ def chef_menu(user):
                         except ValueError:
                             print("Pilihan tidak valid! Masukkan nomor yang benar atau ketik 'keluar' untuk kembali.")
         elif pilihan == '5':
+            user_profile_menu(user)
+        elif pilihan == '6':
             print("Logout berhasil. Kembali ke menu utama.")
+            main_menu()
             break
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")
@@ -540,6 +542,6 @@ def main_menu():
             register()  # Registrasi pengguna baru
         elif pilihan == '3':
             print("Terima kasih telah menggunakan aplikasi ini. Sampai jumpa!")
-            break
+            quit()
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")

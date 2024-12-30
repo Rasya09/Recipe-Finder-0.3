@@ -1,5 +1,4 @@
-[
-    {
+[{
         "id": 1,
         "title": "Cemilfood",
         "description": "Makanan ringan yang enak dan renyah.",
@@ -11,6 +10,9 @@
         "steps": [
             "Langkah 1",
             "Langkah 2",
+            "Langkah 3",
+            "Langkah 1",
+            "Langkah 2",
             "Langkah 3"
         ],
         "category": "Makanan Ringan",
@@ -20,8 +22,7 @@
             5,
             1
         ],
-        "user_nilai": [
-            {
+        "user_nilai": [{
                 "id": 4,
                 "username": "napa",
                 "nilai": 3
