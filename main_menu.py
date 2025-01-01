@@ -53,10 +53,11 @@ def user_menu(user):
         print("3. Rekomendasi Resep")
         print("4. Cari Resep")
         print("5. Lihat Resep Dengan Waktu Tertentu")
-        print("6. Profile")
-        print("7. Logout")
+        print("6. Lihat resep dengan visual memasak")
+        print("7. Profile")
+        print("8. Logout")
 
-        pilihan = input("Pilih menu (1/2/3/4/5): ")
+        pilihan = input("Pilih menu (1/2/3/4/5/6/7/8): ")
 
         if pilihan == '1':
             lihat_resep_berdasarkan_kategori(recipes, user)
@@ -69,8 +70,10 @@ def user_menu(user):
         elif pilihan == '5':
             lihat_resep_dengan_waktu(recipes, user)
         elif pilihan == '6':
+            visual_resep(recipes,user)
+        elif pilihan == "7":
             user_profile_menu(user)
-        elif pilihan == '7':
+        elif pilihan == '8':
             print("Logout berhasil. Sampai jumpa!")
             main_menu()
             break
@@ -222,6 +225,33 @@ def lihat_resep_dengan_waktu(recipes, user):
     except ValueError:
         print("⚠️ Harap masukkan angka yang valid untuk waktu memasak.")
 
+#6. Fungsi untuk melihat resep dengan visual
+def visual_resep(recipes,user):
+    #filter resep berdasarkan visual
+    resep_visual = [resep for resep in recipes if resep.get('link')]
+    if resep_visual:
+        print("\nResep dengan visual memasak")
+        for idx, resep in enumerate(resep_visual, start=1):
+            print(f"{idx}. {resep['title']}")
+
+        while True:
+            try:
+                pilihan = input("\n🔍 Pilih resep untuk melihat detail (masukkan nomor, atau 'keluar' untuk keluar): ").strip()                    
+                if pilihan.lower() == 'keluar':
+                    print("🔙 Kembali ke menu utama...")
+                    return
+                    
+                pilihan_idx = int(pilihan) - 1
+                if 0 <= pilihan_idx < len(resep_visual):
+                    tampilkan_detail_resep(resep_visual[pilihan_idx], user)
+                    break
+                else:
+                    print("⚠️ Nomor tidak valid. Silakan pilih dari daftar.")
+            except ValueError:
+                print("⚠️ Masukkan angka yang valid atau 'q' untuk keluar.")
+    else:
+        print("Tidak ada resep dengan visual memasak")
+
 # Tampilkan Detail Resep
 def tampilkan_detail_resep(recipe, user):
     while True:
@@ -351,7 +381,9 @@ def tampilkan_detail_resep(recipe, user):
         else:
             print("⚠️ Pilihan tidak valid. Silakan coba lagi.")
 
-#6. Fungsi untuk profil user
+
+
+#7. Fungsi untuk profil user
 def view_profile(user):
     print(f"\n=== Profil ===")
     print(f"Nama Pengguna: {user['username']}")
