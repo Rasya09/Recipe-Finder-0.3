@@ -1,276 +1,200 @@
-[{
+[
+    {
         "id": 1,
-        "title": "Cemilfood",
-        "description": "Makanan ringan yang enak dan renyah.",
+        "title": "yackikuka",
+        "description": "makanan ringan",
         "ingredients": [
-            "Bahan 1",
-            "Bahan 2",
-            "Bahan 3"
+            "bahan 1",
+            "bahan 2",
+            "bahan 3"
         ],
         "steps": [
-            "Langkah 1",
-            "Langkah 2",
-            "Langkah 3",
-            "Langkah 1",
-            "Langkah 2",
-            "Langkah 3"
+            "langkah 1",
+            "langkah 2",
+            "langkah 3"
         ],
         "category": "Makanan Ringan",
-        "author": "rasya",
-        "nilai": [
-            3,
-            5,
-            1
-        ],
-        "user_nilai": [{
-                "id": 4,
-                "username": "napa",
-                "nilai": 3
-            },
-            {
-                "id": 3,
-                "username": "ikbal",
-                "nilai": 1
-            },
-            {
-                "id": 2,
-                "username": "siapa",
-                "nilai": 1
-            }
-        ],
-        "ulasan": [
-            "wow"
-        ]
-    },
-    {
-        "id": 2,
-        "title": "Kue Lapis Manis",
-        "description": "Kue lapis dengan tekstur lembut dan manis.",
-        "ingredients": [
-            "200 gram tepung beras",
-            "100 gram gula pasir",
-            "200 ml santan"
-        ],
-        "steps": [
-            "Campurkan semua bahan hingga rata.",
-            "Tuang adonan lapis demi lapis ke loyang.",
-            "Kukus hingga matang."
-        ],
-        "category": "Makanan Ringan",
-        "author": "Dita",
-        "ulasan": [
-            "Rasanya lembut",
-            "Manisnya pas"
-        ]
-    },
-    {
-        "id": 3,
-        "title": "Martabak Mini",
-        "description": "Martabak manis dengan ukuran mini.",
-        "ingredients": [
-            "100 gram tepung terigu",
-            "1 butir telur",
-            "50 ml susu cair"
-        ],
-        "steps": [
-            "Campur tepung, telur, dan susu.",
-            "Tuang adonan ke cetakan martabak mini.",
-            "Tambahkan topping sesuai selera."
-        ],
-        "category": "Makanan Ringan",
-        "author": "Yusuf",
-        "ulasan": [
-            "Enak banget!",
-            "Anak-anak suka"
-        ],
-        "nilai": [
-            5,
-            5,
-            5
-        ]
-    },
-    {
-        "id": 4,
-        "title": "Donat Kentang",
-        "description": "Donat empuk dengan campuran kentang.",
-        "ingredients": [
-            "200 gram tepung terigu",
-            "100 gram kentang rebus",
-            "1 sdm gula"
-        ],
-        "steps": [
-            "Campur tepung, kentang, dan gula.",
-            "Bentuk adonan menjadi donat.",
-            "Goreng hingga keemasan."
-        ],
-        "category": "Makanan Ringan",
-        "author": "Mira",
-        "ulasan": [
-            "Empuk sekali",
-            "Manisnya pas"
-        ],
-        "nilai": [
-            5,
-            5,
-            4
-        ]
-    },
-    {
-        "id": 5,
-        "title": "Roti Bakar Coklat",
-        "description": "Roti bakar dengan isian cokelat lezat.",
-        "ingredients": [
-            "2 lembar roti tawar",
-            "1 sdm selai cokelat",
-            "Mentega secukupnya"
-        ],
-        "steps": [
-            "Olesi roti dengan selai cokelat.",
-            "Panggang roti di atas wajan.",
-            "Sajikan selagi hangat."
-        ],
-        "category": "Makanan Ringan",
-        "author": "Sari",
-        "ulasan": [
-            "Cokelatnya lumer",
-            "Enak dinikmati pagi hari"
-        ],
-        "nilai": [
-            5,
-            4,
-            5
-        ]
-    },
-    {
-        "id": 6,
-        "title": "Puding Coklat",
-        "description": "Puding lembut dengan rasa cokelat yang kaya.",
-        "ingredients": [
-            "1 bungkus bubuk puding cokelat",
-            "500 ml susu cair",
-            "50 gram gula pasir"
-        ],
-        "steps": [
-            "Campur semua bahan dalam panci.",
-            "Masak sambil diaduk hingga mendidih.",
-            "Dinginkan di cetakan."
-        ],
-        "category": "Makanan Penutup",
-        "author": "Alya",
-        "ulasan": [
-            "Lembut dan manis",
-            "Anak-anak suka"
-        ],
-        "nilai": [
-            5,
-            5,
-            5,
-            5
-        ]
-    },
-    {
-        "id": 7,
-        "title": "Ayam Goreng Tepung",
-        "description": "Ayam goreng crispy dengan tepung gurih.",
-        "ingredients": [
-            "500 gram ayam potong",
-            "100 gram tepung terigu",
-            "Garam secukupnya"
-        ],
-        "steps": [
-            "Lumuri ayam dengan bumbu.",
-            "Baluri dengan tepung.",
-            "Goreng hingga keemasan."
-        ],
-        "category": "Makanan Berat",
-        "author": "Rafi",
+        "time": "5",
+        "link": "https://www.youtube.com/watch?v=cH6MzgaNDFw",
         "ulasan": [
             "Gurih dan renyah",
             "Enak disantap dengan nasi"
         ],
         "nilai": [
             5,
-            4,
+            1,
+            2,
             5
-        ]
+        ],
+        "user_nilai": [
+            {
+                "id": 4,
+                "username": "napa",
+                "nilai": 5
+            },
+            {
+                "id": 2,
+                "username": "siapa",
+                "nilai": 1
+            },
+            {
+                "id": 3,
+                "username": "ikbal",
+                "nilai": 2
+            }
+        ],
+        "author": "rasya"
     },
     {
-        "id": 8,
-        "title": "Es Buah Segar",
-        "description": "Es buah dengan berbagai macam potongan buah segar.",
+        "id": 2,
+        "title": "sambal matah",
+        "description": "bumbu pedas khas bali",
         "ingredients": [
-            "100 gram melon",
-            "100 gram semangka",
-            "50 ml sirup cocopandan"
+            "cabai rawit",
+            "bawang merah",
+            "minyak kelapa"
         ],
         "steps": [
-            "Potong buah kecil-kecil.",
-            "Campur buah dengan sirup dan es batu.",
-            "Sajikan dalam mangkuk."
+            "cincang bahan",
+            "campur semua bahan",
+            "sajikan"
         ],
-        "category": "Minuman",
-        "author": "Tita",
+        "category": "Makanan Pembuka",
+        "time": "10",
+        "link": "https://www.youtube.com/watch?v=abcd1234",
         "ulasan": [
-            "Segar sekali!",
-            "Cocok untuk cuaca panas"
+            "Pedas dan segar",
+            "Cocok untuk ayam goreng"
         ],
-        "nilai": [
-            5,
-            5,
-            4
-        ]
+        "nilai": [],
+        "user_nilai": [],
+        "author": "ayu"
     },
     {
-        "id": 9,
-        "title": "Bakwan Sayur",
-        "description": "Bakwan goreng dengan campuran sayuran segar.",
+        "id": 3,
+        "title": "nasi goreng spesial",
+        "description": "nasi goreng dengan bumbu lengkap",
         "ingredients": [
-            "100 gram kol",
-            "1 wortel",
-            "50 gram tepung terigu"
+            "nasi putih",
+            "kecap manis",
+            "telur"
         ],
         "steps": [
-            "Campur semua bahan menjadi adonan.",
-            "Goreng adonan hingga kecokelatan.",
-            "Sajikan dengan saus sambal."
-        ],
-        "category": "Makanan Ringan",
-        "author": "Lina",
-        "ulasan": [
-            "Rasanya enak",
-            "Gurih dan renyah"
-        ],
-        "nilai": [
-            5,
-            4,
-            5
-        ]
-    },
-    {
-        "id": 10,
-        "title": "Soto Ayam",
-        "description": "Soto ayam dengan kuah gurih dan rempah khas.",
-        "ingredients": [
-            "500 gram ayam",
-            "2 liter air",
-            "2 batang serai"
-        ],
-        "steps": [
-            "Rebus ayam dengan bumbu.",
-            "Masak hingga kuah mendidih.",
-            "Sajikan dengan nasi dan sambal."
+            "tumis bumbu",
+            "masukkan nasi",
+            "sajikan dengan telur"
         ],
         "category": "Makanan Berat",
-        "author": "Rian",
+        "time": "15",
+        "link": "https://www.youtube.com/watch?v=efgh5678",
         "ulasan": [
-            "Kuahnya gurih",
-            "Daging ayamnya empuk"
+            "Rasanya lezat",
+            "Bumbu meresap sempurna"
+        ],
+        "nilai": [],
+        "user_nilai": [],
+        "author": "agus"
+    },
+    {
+        "id": 4,
+        "title": "ayam geprek",
+        "description": "ayam goreng dengan sambal pedas",
+        "ingredients": [
+            "ayam goreng",
+            "sambal bawang",
+            "tepung crispy"
+        ],
+        "steps": [
+            "goreng ayam",
+            "ulek sambal",
+            "geprek ayam bersama sambal"
+        ],
+        "category": "Makanan Berat",
+        "time": "20",
+        "link": "https://www.youtube.com/watch?v=ijkl9101",
+        "ulasan": [
+            "Super pedas",
+            "Renah di luar, juicy di dalam"
         ],
         "nilai": [
             5,
-            5,
-            5,
             5
-        ]
+        ],
+        "user_nilai": [
+            {
+                "id": 4,
+                "username": "napa",
+                "nilai": 5
+            },
+            {
+                "id": 3,
+                "username": "ikbal",
+                "nilai": 5
+            }
+        ],
+        "author": "ani"
+    },
+    {
+        "id": 5,
+        "title": "pudding coklat",
+        "description": "pudding manis dengan saus coklat",
+        "ingredients": [
+            "susu cair",
+            "coklat bubuk",
+            "gula pasir"
+        ],
+        "steps": [
+            "campur bahan",
+            "masak hingga mendidih",
+            "dinginkan di kulkas"
+        ],
+        "category": "Makanan Penutup",
+        "time": "30",
+        "link": "https://www.youtube.com/watch?v=mnop1122",
+        "ulasan": [
+            "Manis dan lembut",
+            "Sempurna untuk pencuci mulut"
+        ],
+        "nilai": [],
+        "user_nilai": [],
+        "author": "budi"
+    },
+    {
+        "id": 6,
+        "title": "blakblak",
+        "description": "enak pokoknya",
+        "ingredients": [
+            "bahan 1",
+            "bahan 2",
+            "3"
+        ],
+        "steps": [
+            "langkah 1",
+            "2",
+            "3"
+        ],
+        "category": "Makanan Ringan",
+        "time": "80",
+        "link": "",
+        "author": "rasya"
+    },
+    {
+        "id": 7,
+        "title": "jus durian",
+        "description": "enak",
+        "ingredients": [
+            "1",
+            "3",
+            "2"
+        ],
+        "steps": [
+            "3",
+            "2",
+            "1"
+        ],
+        "category": "Minuman",
+        "time": "20",
+        "link": "",
+        "author": "rasya"
     }
 ]

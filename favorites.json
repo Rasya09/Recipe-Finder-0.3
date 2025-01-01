@@ -1,56 +1,54 @@
 {
-    "ikbal": [
+    "napa": [
         {
-            "id": 1,
-            "title": "Cemilfood",
-            "description": "Makanan ringan yang enak dan renyah.",
+            "id": 4,
+            "title": "ayam geprek",
+            "description": "ayam goreng dengan sambal pedas",
             "ingredients": [
-                "Bahan 1",
-                "Bahan 2",
-                "Bahan 3"
+                "ayam goreng",
+                "sambal bawang",
+                "tepung crispy"
             ],
             "steps": [
-                "Langkah 1",
-                "Langkah 2",
-                "Langkah 3"
+                "goreng ayam",
+                "ulek sambal",
+                "geprek ayam bersama sambal"
             ],
-            "category": "Makanan Ringan",
-            "author": "rasya",
+            "category": "Makanan Berat",
+            "author": "ani",
             "ulasan": [
-                "wow"
+                "Super pedas",
+                "Renah di luar, juicy di dalam"
             ],
             "nilai": [
-                3,
                 5,
-                1
+                4,
+                4
             ]
         }
     ],
-    "siapa": [
+    "ikbal": [
         {
-            "id": 10,
-            "title": "Soto Ayam",
-            "description": "Soto ayam dengan kuah gurih dan rempah khas.",
+            "id": 4,
+            "title": "ayam geprek",
+            "description": "ayam goreng dengan sambal pedas",
             "ingredients": [
-                "500 gram ayam",
-                "2 liter air",
-                "2 batang serai"
+                "ayam goreng",
+                "sambal bawang",
+                "tepung crispy"
             ],
             "steps": [
-                "Rebus ayam dengan bumbu.",
-                "Masak hingga kuah mendidih.",
-                "Sajikan dengan nasi dan sambal."
+                "goreng ayam",
+                "ulek sambal",
+                "geprek ayam bersama sambal"
             ],
             "category": "Makanan Berat",
-            "author": "Rian",
+            "author": "ani",
             "ulasan": [
-                "Kuahnya gurih",
-                "Daging ayamnya empuk"
+                "Super pedas",
+                "Renah di luar, juicy di dalam"
             ],
             "nilai": [
-                5,
-                5,
-                5,
                 5
             ]
         }

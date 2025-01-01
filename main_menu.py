@@ -1,6 +1,6 @@
 import bcrypt
 from auth_app import get_valid_email, get_valid_password, get_valid_username, register, login, json
-from resep import add_recipe, load_recipes
+from resep import add_recipe, delete_recipe, delete_recipe_interactive, edit_recipe, edit_recipe_interactive, load_recipes
 
 import json
 
@@ -52,8 +52,9 @@ def user_menu(user):
         print("2. Lihat Resep Yang DiFavoritkan")
         print("3. Rekomendasi Resep")
         print("4. Cari Resep")
-        print("5. Profile")
-        print("6. Logout")
+        print("5. Lihat Resep Dengan Waktu Tertentu")
+        print("6. Profile")
+        print("7. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
 
@@ -66,8 +67,10 @@ def user_menu(user):
         elif pilihan == '4':
             cari_resep(recipes)
         elif pilihan == '5':
-            user_profile_menu(user)
+            lihat_resep_dengan_waktu(recipes, user)
         elif pilihan == '6':
+            user_profile_menu(user)
+        elif pilihan == '7':
             print("Logout berhasil. Sampai jumpa!")
             main_menu()
             break
@@ -178,6 +181,46 @@ def cari_resep(recipes):
     else:
         print("Tidak ada resep yang cocok dengan kata kunci.")
 
+# 5. Lihat Resep Berdasarkan Waktu Tertentu
+def lihat_resep_dengan_waktu(recipes, user):
+    """
+    Menampilkan resep berdasarkan waktu memasak yang diinginkan pengguna dan memungkinkan untuk melihat detail resep.
+    """
+    try:
+        waktu = int(input("\nMasukkan waktu memasak yang diinginkan (dalam menit): "))
+        
+        if waktu <= 0:
+            print("⚠️ Waktu harus lebih dari 0 menit.")
+            return
+        
+        # Filter resep berdasarkan waktu
+        resep_sesuai = [resep for resep in recipes if resep.get('time') and int(resep['time']) <= waktu]
+        
+        if resep_sesuai:
+            print(f"\n📚 Resep dengan waktu memasak {waktu} menit atau kurang:")
+            for idx, resep in enumerate(resep_sesuai, start=1):
+                print(f"{idx}. {resep['title']} - Waktu Memasak: {resep['time']} menit")
+            
+            while True:
+                try:
+                    pilihan = input("\n🔍 Pilih resep untuk melihat detail (masukkan nomor, atau 'keluar' untuk keluar): ").strip()
+                    if pilihan.lower() == 'keluar':
+                        print("🔙 Kembali ke menu utama...")
+                        return
+                    
+                    pilihan_idx = int(pilihan) - 1
+                    if 0 <= pilihan_idx < len(resep_sesuai):
+                        tampilkan_detail_resep(resep_sesuai[pilihan_idx], user)
+                        break
+                    else:
+                        print("⚠️ Nomor tidak valid. Silakan pilih dari daftar.")
+                except ValueError:
+                    print("⚠️ Masukkan angka yang valid atau 'q' untuk keluar.")
+        else:
+            print("\n❌ Tidak ada resep yang sesuai dengan waktu yang dimasukkan.")
+    
+    except ValueError:
+        print("⚠️ Harap masukkan angka yang valid untuk waktu memasak.")
 
 # Tampilkan Detail Resep
 def tampilkan_detail_resep(recipe, user):
@@ -201,16 +244,23 @@ def tampilkan_detail_resep(recipe, user):
         print(f"\n=== Detail Resep ===")
         print(f"📌 Judul: {current_recipe['title']}")
         print(f"📖 Deskripsi: {current_recipe['description']}")
-        print(f"🥗 Bahan:")
+        print(f"\n🥗 Bahan:")
         for i, bahan in enumerate(current_recipe['ingredients'], start=1):
             print(f"   {i}. {bahan}")
-        print(f"👨‍🍳 Langkah:")
+        print(f"\n👨‍🍳 Langkah:")
         for i, langkah in enumerate(current_recipe['steps'], start=1):
             print(f"   {i}. {langkah}")
+
+        print(f"\nWaktu Memasak : {current_recipe['time']} menit\n")
+
+        for i, ulasan in enumerate(current_recipe['ulasan'], start=1):
+            print(f"{i}, {ulasan}")
         
         if current_recipe['nilai']:
             rata_rata = sum(current_recipe['nilai']) / len(current_recipe['nilai'])
-            print(f"⭐ Rata-rata Penilaian: {rata_rata:.2f}")
+            print(f"\n⭐ Rata-rata Penilaian: {rata_rata:.2f}")
+
+        print(f"\nCara memasak bisa lihat di : {current_recipe['link']}")
 
         # Opsi untuk pengguna
         print("\n🔑 Pilih Opsi:")
@@ -301,7 +351,7 @@ def tampilkan_detail_resep(recipe, user):
         else:
             print("⚠️ Pilihan tidak valid. Silakan coba lagi.")
 
-#5. Fungsi untuk profil user
+#6. Fungsi untuk profil user
 def view_profile(user):
     print(f"\n=== Profil ===")
     print(f"Nama Pengguna: {user['username']}")
@@ -443,6 +493,7 @@ def chef_menu(user):
                     print(f"Deskripsi: {selected_recipe['description']}")
                     print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
                     print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                    print(f"Waktu Memasak: {selected_recipe['time']}")
                     print(f"Dibuat oleh: {selected_recipe['author']}")
                 except ValueError:
                     print("Pilihan tidak valid!")
@@ -453,23 +504,42 @@ def chef_menu(user):
             else:
                 print("Resep Anda:")
                 for i, recipe in enumerate(my_recipes, 1):
-                    print(f"{i}. {recipe['title']}")  # Menampilkan hanya judul resep
+                    print(f"{i}. {recipe['title']}")
 
                 try:
                     selected_recipe_index = int(input("Pilih resep untuk melihat detail (masukkan nomor): ")) - 1
-                    if selected_recipe_index < 0 or selected_recipe_index >= len(my_recipes):
-                        print("Pilihan tidak valid!")
-                        continue
+                    if 0 <= selected_recipe_index < len(my_recipes):
+                        selected_recipe = my_recipes[selected_recipe_index]
+                        print("\nDetail Resep:")
+                        print(f"Judul: {selected_recipe['title']}")
+                        print(f"Deskripsi: {selected_recipe['description']}")
+                        print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
+                        print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
+                        print(f"Kategori: {selected_recipe['category']}")
+                        print(f"Waktu Memasak: {selected_recipe['time']} menit")
 
-                    selected_recipe = my_recipes[selected_recipe_index]
-                    print("\nDetail Resep:")
-                    print(f"Judul: {selected_recipe['title']}")
-                    print(f"Deskripsi: {selected_recipe['description']}")
-                    print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
-                    print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
-                    print(f"Kategori: {selected_recipe['category']}")  # Menampilkan kategori resep
+                        while True:
+                            print("\nPilih Opsi")
+                            print("1. Edit Resep")
+                            print("2. Hapus Resep")
+                            print("3. Keluar")
+
+                            sub_pilihan = input("Pilih Menu (1/2/3): ")
+
+                            if sub_pilihan == '1':
+                                edit_recipe_interactive(selected_recipe)
+                            elif sub_pilihan == '2':
+                                delete_recipe_interactive(selected_recipe)
+                                print("Resep berhasil dihapus.")
+                                break
+                            elif sub_pilihan == '3':
+                                break
+                            else:
+                                print("Pilihan tidak valid!")
+                    else:
+                        print("Pilihan tidak valid!")
                 except ValueError:
-                    print("Pilihan tidak valid!")
+                    print("Harap masukkan angka yang valid!")
         # elif pilihan == '4':
         #     edit_recipe(user)
         elif pilihan == '4':  # Fitur pencarian resep

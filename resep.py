@@ -29,6 +29,23 @@ def generate_recipe_id(recipes):
         return 1
     return max(recipe['id'] for recipe in recipes) + 1
 
+def save_recipes_to_file(updated_recipe):
+    recipes = load_recipes()
+    for i, recipe in enumerate(recipes):
+        if recipe['title'] == updated_recipe['title']:
+            recipes[i] = updated_recipe
+            break
+    with open('recipes.json', 'w') as file:
+        json.dump(recipes, file, indent=4)
+
+def show_latest_recipes(recipes):
+    recipes = load_recipes()
+    recipes.sort(key=lambda x: x['id'], reverse=True)  # Asumsi 'id' bertambah
+    latest_recipes = recipes[:5]  
+    print("Notifikasi: Resep terbaru yang ditambahkan:\n")
+    for recipe in latest_recipes:
+        print(f"{recipe['title']} - {recipe['category']}")
+        print('-' * 50)
 
 # Fungsi untuk menambahkan resep
 def add_recipe(chef):
@@ -115,6 +132,19 @@ def add_recipe(chef):
         else:
             steps.append(step)
 
+    # menambahkan waktu memasak
+    while True:
+        time = input("Masukkan waktu memasak resep (menit): ").strip()
+        if len(time) < 1:
+            print("waktu memasak tidak boleh kosong")
+        else:
+            break
+
+    # menambahkan visual memasak
+    while True:
+        link = input("Masukkan link video memasak resep (jika tidak ada kosongkan): ").strip()
+        break
+
     # Buat ID resep otomatis
     recipe_id = generate_recipe_id(recipes)
 
@@ -125,7 +155,9 @@ def add_recipe(chef):
         "description": description,
         "ingredients": ingredients,
         "steps": steps,
-        "category": category,  # Menyimpan kategori resep
+        "category": category,
+        "time": time,
+        "link":link,
         "author": chef['username']  # Menyimpan nama Chef sebagai pembuat resep
     })
 
@@ -134,59 +166,48 @@ def add_recipe(chef):
     print("Resep berhasil ditambahkan!")
 
 # Fungsi untuk mengedit resep
-def edit_recipe(chef):
-    print("\n=== Edit Resep ===")
-    recipes = load_recipes()
-    chef_recipes = [recipe for recipe in recipes if recipe['author'] == chef['username']]
-
-    if not chef_recipes:
+def edit_recipe(user):
+    print("\n=== Edit Resep Anda ===")
+    my_recipes = [recipe for recipe in load_recipes() if recipe['author'] == user['username']]
+    
+    if not my_recipes:
         print("Anda belum memiliki resep untuk diedit.")
         return
-
-    print("Resep Anda:")
-    for recipe in chef_recipes:
-        print(f"{recipe['id']}. {recipe['title']}")
+    
+    # Tampilkan resep pengguna
+    for i, recipe in enumerate(my_recipes, 1):
+        print(f"{i}. {recipe['title']}")
 
     try:
-        recipe_id = int(input("Masukkan ID resep yang ingin diedit: "))
+        choice = int(input("Pilih resep yang ingin diedit (masukkan nomor): ")) - 1
+        if choice < 0 or choice >= len(my_recipes):
+            print("Pilihan tidak valid!")
+            return
+        
+        selected_recipe = my_recipes[choice]
+        print(f"\nMengedit Resep: {selected_recipe['title']}")
+        
+        # Edit atribut resep
+        selected_recipe['title'] = input(f"Judul ({selected_recipe['title']}): ").strip() or selected_recipe['title']
+        selected_recipe['description'] = input(f"Deskripsi ({selected_recipe['description']}): ").strip() or selected_recipe['description']
+        
+        print("Edit Bahan (kosongkan untuk melewati):")
+        for i, ingredient in enumerate(selected_recipe['ingredients'], 1):
+            new_ingredient = input(f"Bahan {i} ({ingredient}): ").strip()
+            if new_ingredient:
+                selected_recipe['ingredients'][i-1] = new_ingredient
+        
+        print("Edit Langkah (kosongkan untuk melewati):")
+        for i, step in enumerate(selected_recipe['steps'], 1):
+            new_step = input(f"Langkah {i} ({step}): ").strip()
+            if new_step:
+                selected_recipe['steps'][i-1] = new_step
+
+        save_recipes(load_recipes())  # Simpan semua resep yang diperbarui
+        print("Resep berhasil diperbarui!")
+    
     except ValueError:
-        print("ID tidak valid!")
-        return
-
-    recipe_to_edit = next((recipe for recipe in chef_recipes if recipe['id'] == recipe_id), None)
-    if not recipe_to_edit:
-        print("Resep tidak ditemukan.")
-        return
-
-    print("Kosongkan input jika tidak ingin mengubah bagian tersebut.")
-    new_title = input(f"Judul baru ({recipe_to_edit['title']}): ") or recipe_to_edit['title']
-    new_description = input(f"Deskripsi baru ({recipe_to_edit['description']}): ") or recipe_to_edit['description']
-    
-    # Mengubah bahan-bahan secara satu per satu
-    new_ingredients = []
-    print("Masukkan bahan-bahan baru (ketik 'selesai' jika sudah):")
-    while True:
-        ingredient = input("Bahan: ")
-        if ingredient.lower() == 'selesai':
-            break
-        new_ingredients.append(ingredient.strip())
-    
-    # Mengubah langkah-langkah secara satu per satu
-    new_steps = []
-    print("Masukkan langkah-langkah baru (ketik 'selesai' jika sudah):")
-    while True:
-        step = input("Langkah: ")
-        if step.lower() == 'selesai':
-            break
-        new_steps.append(step.strip())
-
-    recipe_to_edit['title'] = new_title
-    recipe_to_edit['description'] = new_description
-    recipe_to_edit['ingredients'] = new_ingredients
-    recipe_to_edit['steps'] = new_steps
-
-    save_recipes(recipes)
-    print("Resep berhasil diperbarui!")
+        print("Masukkan angka yang valid!")
 
 # Fungsi untuk menghapus resep
 def delete_recipe(chef):
@@ -220,3 +241,94 @@ def delete_recipe(chef):
         print("Resep berhasil dihapus!")
     else:
         print("Penghapusan dibatalkan.")
+
+def edit_recipe_interactive(recipe):
+    print(f"\nMengedit Resep: {recipe['title']}")
+    
+    # Edit Judul
+    new_title = input(f"Judul ({recipe['title']}) klik 'enter' jika judulnya sama: ").strip()
+    if new_title:
+        recipe['title'] = new_title
+    
+    # Edit Deskripsi
+    new_description = input(f"Deskripsi ({recipe['description']}) klik 'enter' jika deskripsinya sama: ").strip()
+    if new_description:
+        recipe['description'] = new_description
+    
+    # Edit Bahan-bahan
+    print("\nEdit Bahan (ketik 'selesai' jika sudah selesai memasukkan bahan baru, data tidak diperbolehkan kosong):")
+    new_ingredients = []
+    index = 1
+    while True:
+        new_ingredient = input(f"Bahan {index}: ").strip()
+        if new_ingredient.lower() == 'selesai':
+            if len(new_ingredients) < 3:
+                print("Minimal harus ada 3 bahan.")
+            else:
+                break
+        elif new_ingredient.lower() == 'kembali':
+            if new_ingredients:
+                removed = new_ingredients.pop()
+                print(f"Bahan terakhir '{removed}' dihapus.")
+                index -= 1
+            else:
+                print("Tidak ada bahan yang bisa dihapus.")
+        elif new_ingredient.lower() == 'keluar':
+            print("Proses pengeditan resep dibatalkan.")
+            return
+        elif len(new_ingredient) < 1:
+            print("Bahan tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            new_ingredients.append(new_ingredient)
+            index += 1
+    
+    if new_ingredients:
+        recipe['ingredients'] = new_ingredients  # Ganti semua bahan lama dengan yang baru
+    
+    # Edit Langkah-langkah
+    print("\nEdit Langkah (ketik 'selesai' jika sudah selesai memasukkan langkah baru, data tidak diperbolehkan kosong):")
+    new_steps = []
+    step_index = 1
+    while True:
+        new_step = input(f"Langkah {step_index}: ").strip()
+        if new_step.lower() == 'selesai':
+            if len(new_steps) < 3:
+                print("Minimal harus ada 3 langkah.")
+            else:
+                break
+        elif new_step.lower() == 'kembali':
+            if new_steps:
+                removed = new_steps.pop()
+                print(f"Langkah terakhir '{removed}' dihapus.")
+                step_index -= 1
+            else:
+                print("Tidak ada langkah yang bisa dihapus.")
+        elif new_step.lower() == 'keluar':
+            print("Proses pengeditan resep dibatalkan.")
+            return
+        elif len(new_step) < 1:
+            print("Langkah tidak boleh kosong. Masukkan minimal 1 kalimat.")
+        else:
+            new_steps.append(new_step)
+            step_index += 1
+    
+    if new_steps:
+        recipe['steps'] = new_steps  # Ganti semua langkah lama dengan yang baru
+
+    new_time = input(f"Waktu ({recipe['time']} menit) klik 'enter' jika waktu memasaknya sama: ").strip()
+    if new_time:
+        recipe['time'] = new_time
+    
+    new_link = input(f"Link : ({recipe['link']}) klik 'enter' jika link video memasak sama: ").strip()
+    if new_link:
+        recipe['link'] = new_link
+    
+    print("\n✅ Resep berhasil diperbarui!")
+    save_recipes_to_file(recipe)
+
+
+def delete_recipe_interactive(recipe):
+    recipes = load_recipes()
+    recipes = [r for r in recipes if r != recipe]
+    save_recipes(recipes)
+    print(f"Resep '{recipe['title']}' telah dihapus.")

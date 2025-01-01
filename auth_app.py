@@ -1,12 +1,13 @@
 import json
 import os
 import bcrypt
+from resep import load_recipes, show_latest_recipes
 
 # File JSON tempat menyimpan data pengguna
 DATA_FILE = 'users.json'
 
 # Fungsi memuat data dari file JSON
-def load_data():
+def     load_data():
     if not os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'w') as file:
             json.dump([], file)
@@ -70,6 +71,10 @@ def get_valid_password(text_form="Masukkan password (minimal 8 karakter): "):
             
         return password
     
+def save_users(users):
+    with open(DATA_FILE, 'w') as file:
+        json.dump(users, file)
+    
 # Fungsi registrasi pengguna
 def register():
     print("\n=== Registrasi Pengguna ===")
@@ -126,7 +131,10 @@ def login():
 
     for user in users:
         if user['email'] == email and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-            print(f"✅ Login berhasil! Selamat datang, {user['username']} ({user['role']}).")
+            print(f"\n✅ Login berhasil! Selamat datang, {user['username']} ({user['role']}).\n ")
+            recipes = load_recipes()  # Muat resep terbaru
+            show_latest_recipes(recipes)  # Tampilkan resep terbaru
+            
             return user
 
     print("\n")
