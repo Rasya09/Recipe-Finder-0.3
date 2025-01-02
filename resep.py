@@ -328,7 +328,13 @@ def edit_recipe_interactive(recipe):
 
 
 def delete_recipe_interactive(recipe):
-    recipes = load_recipes()
-    recipes = [r for r in recipes if r != recipe]
-    save_recipes(recipes)
-    print(f"Resep '{recipe['title']}' telah dihapus.")
+    confirm = input(f"Apakah Anda yakin ingin menghapus resep ini'? (y/n): ").lower()
+    if confirm == 'y':
+        recipes = load_recipes()
+        recipes = [r for r in recipes if r != recipe]
+        save_recipes(recipes)
+        print(f"Resep telah dihapus.")
+    elif confirm == 'n':
+        print("Penghapusan dibatalkan.")
+    else:
+        print("Pilihan tidak valid")

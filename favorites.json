@@ -52,5 +52,34 @@
                 5
             ]
         }
+    ],
+    "siapa": [
+        {
+            "id": 1,
+            "title": "yackikuka",
+            "description": "makanan ringan",
+            "ingredients": [
+                "bahan 1",
+                "bahan 2",
+                "bahan 3"
+            ],
+            "steps": [
+                "langkah 1",
+                "langkah 2",
+                "langkah 3"
+            ],
+            "category": "Makanan Ringan",
+            "author": "rasya",
+            "ulasan": [
+                "Gurih dan renyah",
+                "Enak disantap dengan nasi"
+            ],
+            "nilai": [
+                5,
+                1,
+                2,
+                5
+            ]
+        }
     ]
 }

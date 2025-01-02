@@ -562,7 +562,6 @@ def chef_menu(user):
                                 edit_recipe_interactive(selected_recipe)
                             elif sub_pilihan == '2':
                                 delete_recipe_interactive(selected_recipe)
-                                print("Resep berhasil dihapus.")
                                 break
                             elif sub_pilihan == '3':
                                 break

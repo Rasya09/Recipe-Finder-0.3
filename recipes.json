@@ -1,51 +1,5 @@
 [
     {
-        "id": 1,
-        "title": "yackikuka",
-        "description": "makanan ringan",
-        "ingredients": [
-            "bahan 1",
-            "bahan 2",
-            "bahan 3"
-        ],
-        "steps": [
-            "langkah 1",
-            "langkah 2",
-            "langkah 3"
-        ],
-        "category": "Makanan Ringan",
-        "time": "5",
-        "link": "https://www.youtube.com/watch?v=cH6MzgaNDFw",
-        "ulasan": [
-            "Gurih dan renyah",
-            "Enak disantap dengan nasi"
-        ],
-        "nilai": [
-            5,
-            1,
-            2,
-            5
-        ],
-        "user_nilai": [
-            {
-                "id": 4,
-                "username": "napa",
-                "nilai": 5
-            },
-            {
-                "id": 2,
-                "username": "siapa",
-                "nilai": 1
-            },
-            {
-                "id": 3,
-                "username": "ikbal",
-                "nilai": 2
-            }
-        ],
-        "author": "rasya"
-    },
-    {
         "id": 2,
         "title": "sambal matah",
         "description": "bumbu pedas khas bali",
