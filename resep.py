@@ -3,6 +3,20 @@ import os
 
 # File JSON tempat menyimpan data resep
 RECIPES_FILE = 'recipes.json'
+FAVORITES_FILE = 'favorites.json'
+
+# Fungsi memuat data favorit dari file JSON
+def load_favorites():
+    if not os.path.exists(FAVORITES_FILE):
+        with open(FAVORITES_FILE, 'w') as file:
+            json.dump({}, file)
+    with open(FAVORITES_FILE, 'r') as file:
+        return json.load(file)
+
+# Fungsi menyimpan data favorit ke file JSON
+def save_favorites(data):
+    with open(FAVORITES_FILE, 'w') as file:
+        json.dump(data, file, indent=4)
 
 # Fungsi memuat data resep dari file JSON
 def load_recipes():
@@ -326,15 +340,23 @@ def edit_recipe_interactive(recipe):
     print("\n✅ Resep berhasil diperbarui!")
     save_recipes_to_file(recipe)
 
-
-def delete_recipe_interactive(recipe):
-    confirm = input(f"Apakah Anda yakin ingin menghapus resep ini'? (y/n): ").lower()
-    if confirm == 'y':
-        recipes = load_recipes()
-        recipes = [r for r in recipes if r != recipe]
+def delete_recipe_interactive(recipe_id, user):
+    recipes = load_recipes()
+    favorites = load_favorites()
+    
+    # Cari resep berdasarkan ID dan penulis
+    recipe = next((r for r in recipes if r['id'] == recipe_id and r['author'] == user['username']), None)
+    
+    if recipe:
+        # Hapus resep dari daftar resep
+        recipes = [r for r in recipes if r['id'] != recipe_id]
         save_recipes(recipes)
-        print(f"Resep telah dihapus.")
-    elif confirm == 'n':
-        print("Penghapusan dibatalkan.")
+        print("✅ Resep berhasil dihapus dari daftar resep.")
+        
+        # Hapus resep dari daftar favorit semua pengguna
+        for username, user_favorites in favorites.items():
+            favorites[username] = [fav for fav in user_favorites if fav['id'] != recipe_id]
+        
+        save_favorites(favorites)
     else:
-        print("Pilihan tidak valid")
+        print("⚠️ Resep tidak ditemukan atau Anda bukan penulisnya.")

@@ -1,85 +1,30 @@
 {
-    "napa": [
-        {
-            "id": 4,
-            "title": "ayam geprek",
-            "description": "ayam goreng dengan sambal pedas",
-            "ingredients": [
-                "ayam goreng",
-                "sambal bawang",
-                "tepung crispy"
-            ],
-            "steps": [
-                "goreng ayam",
-                "ulek sambal",
-                "geprek ayam bersama sambal"
-            ],
-            "category": "Makanan Berat",
-            "author": "ani",
-            "ulasan": [
-                "Super pedas",
-                "Renah di luar, juicy di dalam"
-            ],
-            "nilai": [
-                5,
-                4,
-                4
-            ]
-        }
-    ],
-    "ikbal": [
-        {
-            "id": 4,
-            "title": "ayam geprek",
-            "description": "ayam goreng dengan sambal pedas",
-            "ingredients": [
-                "ayam goreng",
-                "sambal bawang",
-                "tepung crispy"
-            ],
-            "steps": [
-                "goreng ayam",
-                "ulek sambal",
-                "geprek ayam bersama sambal"
-            ],
-            "category": "Makanan Berat",
-            "author": "ani",
-            "ulasan": [
-                "Super pedas",
-                "Renah di luar, juicy di dalam"
-            ],
-            "nilai": [
-                5
-            ]
-        }
-    ],
-    "siapa": [
-        {
-            "id": 1,
-            "title": "yackikuka",
-            "description": "makanan ringan",
-            "ingredients": [
-                "bahan 1",
-                "bahan 2",
-                "bahan 3"
-            ],
-            "steps": [
-                "langkah 1",
-                "langkah 2",
-                "langkah 3"
-            ],
-            "category": "Makanan Ringan",
-            "author": "rasya",
-            "ulasan": [
-                "Gurih dan renyah",
-                "Enak disantap dengan nasi"
-            ],
-            "nilai": [
-                5,
-                1,
-                2,
-                5
-            ]
-        }
-    ]
+    "napa": [{
+        "id": 4,
+        "title": "ayam geprek",
+        "description": "ayam goreng dengan sambal pedas",
+        "ingredients": [
+            "ayam goreng",
+            "sambal bawang",
+            "tepung crispy"
+        ],
+        "steps": [
+            "goreng ayam",
+            "ulek sambal",
+            "geprek ayam bersama sambal"
+        ],
+        "category": "Makanan Berat",
+        "author": "ani",
+        "ulasan": [
+            "Super pedas",
+            "Renah di luar, juicy di dalam"
+        ],
+        "nilai": [
+            5,
+            4,
+            4
+        ]
+    }],
+    "ikbal": [],
+    "siapa": []
 }

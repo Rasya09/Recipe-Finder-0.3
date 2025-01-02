@@ -1,4 +1,5 @@
-[{
+[
+    {
         "id": 1,
         "username": "rasya",
         "email": "r@gmail.com",
@@ -39,5 +40,12 @@
         "email": "nah@gmail.com",
         "password": "$2b$12$IpIOIwVEqbCBu/RgV93Sruz21tohlR2pLT8uFt/aGBMhh9XnSVTNi",
         "role": "Chef"
+    },
+    {
+        "id": 7,
+        "username": "cobatest",
+        "email": "c@gmail.com",
+        "password": "$2b$12$8Hy0dq93agr5Y.GxlCyPsOgd4TFMEjrKNu679o81Xjc9H1j.iSoia",
+        "role": "User"
     }
 ]

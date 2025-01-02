@@ -1,5 +1,4 @@
-[
-    {
+[{
         "id": 2,
         "title": "sambal matah",
         "description": "bumbu pedas khas bali",
@@ -16,10 +15,7 @@
         "category": "Makanan Pembuka",
         "time": "10",
         "link": "https://www.youtube.com/watch?v=abcd1234",
-        "ulasan": [
-            "Pedas dan segar",
-            "Cocok untuk ayam goreng"
-        ],
+        "ulasan": [],
         "nilai": [],
         "user_nilai": [],
         "author": "ayu"
@@ -41,10 +37,7 @@
         "category": "Makanan Berat",
         "time": "15",
         "link": "https://www.youtube.com/watch?v=efgh5678",
-        "ulasan": [
-            "Rasanya lezat",
-            "Bumbu meresap sempurna"
-        ],
+        "ulasan": [],
         "nilai": [],
         "user_nilai": [],
         "author": "agus"
@@ -66,16 +59,22 @@
         "category": "Makanan Berat",
         "time": "20",
         "link": "https://www.youtube.com/watch?v=ijkl9101",
-        "ulasan": [
-            "Super pedas",
-            "Renah di luar, juicy di dalam"
+        "ulasan": [{
+                "id": 2,
+                "username": "siapa",
+                "ulasan": "uuuweeenakkk"
+            },
+            {
+                "id": 4,
+                "username": "napa",
+                "ulasan": "Sangat Pedas"
+            }
         ],
         "nilai": [
             5,
             5
         ],
-        "user_nilai": [
-            {
+        "user_nilai": [{
                 "id": 4,
                 "username": "napa",
                 "nilai": 5
@@ -86,7 +85,7 @@
                 "nilai": 5
             }
         ],
-        "author": "ani"
+        "author": "rasya"
     },
     {
         "id": 5,
@@ -105,10 +104,7 @@
         "category": "Makanan Penutup",
         "time": "30",
         "link": "https://www.youtube.com/watch?v=mnop1122",
-        "ulasan": [
-            "Manis dan lembut",
-            "Sempurna untuk pencuci mulut"
-        ],
+        "ulasan": [],
         "nilai": [],
         "user_nilai": [],
         "author": "budi"
