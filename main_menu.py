@@ -66,7 +66,7 @@ def user_menu(user):
         elif pilihan == '3':
             rekomendasi_resep(recipes, user)
         elif pilihan == '4':
-            cari_resep(recipes)
+            cari_resep(recipes, user)
         elif pilihan == '5':
             lihat_resep_dengan_waktu(recipes, user)
         elif pilihan == '6':
@@ -167,22 +167,37 @@ def rekomendasi_resep(recipes, user):  # Tambahkan user sebagai parameter
             print("Pilihan tidak valid. Silakan pilih nomor antara 1-5 atau 0 untuk kembali.")
 
 # 4. Cari Resep
-def cari_resep(recipes):
-    keyword = input("Masukkan kata kunci untuk mencari resep: ").strip().lower()
-    found_recipes = []
+def cari_resep(recipes, user):
+    keyword = input("Masukkan kata kunci pencarian: ").strip()
+    if not keyword:
+        print("⚠️ Kata kunci tidak boleh kosong!")
+        return
+    
+    search_results = [recipe for recipe in recipes if keyword.lower() in recipe['title'].lower() or keyword.lower() in recipe['description'].lower()]
+    if not search_results:
+        print("❌ Tidak ada resep yang ditemukan.")
+        return
 
-    # Pencarian berdasarkan judul atau bahan
-    for recipe in recipes:
-        if keyword in recipe['title'].lower() or any(keyword in ingredient.lower() for ingredient in recipe.get('ingredients', [])):
-            found_recipes.append(recipe)
+    print("\n📚 Hasil Pencarian:")
+    for i, recipe in enumerate(search_results, 1):
+        print(f"{i}. {recipe['title']} oleh {recipe['author']}")
 
-    # Tampilkan hasil pencarian
-    if found_recipes:
-        print("\nResep yang ditemukan:")
-        for i, recipe in enumerate(found_recipes, 1):
-            print(f"{i}. {recipe['title']}")
-    else:
-        print("Tidak ada resep yang cocok dengan kata kunci.")
+    while True:
+        selected_input = input("\n🔑 Pilih resep untuk melihat detail (masukkan nomor atau ketik 'keluar' untuk kembali): ").strip()
+        if selected_input.lower() == 'keluar':
+            print("🔙 Kembali ke menu awal...")
+            break
+        
+        try:
+            selected_recipe_index = int(selected_input) - 1
+            if 0 <= selected_recipe_index < len(search_results):
+                selected_recipe = search_results[selected_recipe_index]
+                tampilkan_detail_resep(selected_recipe, user)
+                break
+            else:
+                print("⚠️ Pilihan tidak valid! Silakan coba lagi.")
+        except ValueError:
+            print("⚠️ Masukkan angka yang valid atau 'keluar' untuk kembali.")
 
 # 5. Lihat Resep Berdasarkan Waktu Tertentu
 def lihat_resep_dengan_waktu(recipes, user):
@@ -494,7 +509,6 @@ def chef_menu(user):
         print("3. Lihat Resep Saya")
         print("4. Cari Resep")
         print("5. Profile")
-        # print("5. Hapus Resep")
         print("6. Logout")
 
         pilihan = input("Pilih menu (1/2/3/4/5): ")
@@ -582,47 +596,10 @@ def chef_menu(user):
                         print("Pilihan tidak valid!")
                 except ValueError:
                     print("Harap masukkan angka yang valid!")
-        # elif pilihan == '4':
-        #     edit_recipe(user)
+
         elif pilihan == '4':  # Fitur pencarian resep
-            keyword = input("Masukkan kata kunci pencarian: ").strip()
-            if not keyword:
-                print("Kata kunci tidak boleh kosong!")
-            else:
-                # Mencari resep berdasarkan kata kunci
-                recipes = load_recipes()
-                search_results = [recipe for recipe in recipes if keyword.lower() in recipe['title'].lower() or keyword.lower() in recipe['description'].lower()]
-
-                if not search_results:
-                    print("Tidak ada resep yang ditemukan.")
-                else:
-                    print("\nHasil Pencarian:")
-                    for i, recipe in enumerate(search_results, 1):
-                        print(f"{i}. {recipe['title']} oleh {recipe['author']}")
-
-                    while True:
-                        selected_input = input("Pilih resep untuk melihat detail (masukkan nomor atau ketik 'keluar' untuk kembali): ").strip()
-                        
-                        if selected_input.lower() == 'keluar':
-                            print("Kembali ke menu awal...")
-                            break
-                        
-                        try:
-                            selected_recipe_index = int(selected_input) - 1
-                            if selected_recipe_index < 0 or selected_recipe_index >= len(search_results):
-                                print("Pilihan tidak valid! Silakan coba lagi.")
-                                continue
-
-                            selected_recipe = search_results[selected_recipe_index]
-                            print("\nDetail Resep:")
-                            print(f"Judul: {selected_recipe['title']}")
-                            print(f"Deskripsi: {selected_recipe['description']}")
-                            print(f"Bahan-bahan: {', '.join(selected_recipe['ingredients'])}")
-                            print(f"Langkah-langkah: {', '.join(selected_recipe['steps'])}")
-                            print(f"Dibuat oleh: {selected_recipe['author']}")
-                            break
-                        except ValueError:
-                            print("Pilihan tidak valid! Masukkan nomor yang benar atau ketik 'keluar' untuk kembali.")
+            recipes = load_data("recipes.json")
+            cari_resep(recipes, user)
         elif pilihan == '5':
             user_profile_menu(user)
         elif pilihan == '6':
@@ -631,7 +608,6 @@ def chef_menu(user):
             break
         else:
             print("Pilihan tidak valid! Silakan pilih menu yang benar.")
-
 
 # Fungsi menu utama
 def main_menu():
