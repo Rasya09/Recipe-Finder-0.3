@@ -411,7 +411,7 @@ def user_profile_menu(user):
                     user_menu(user)
                     return  # Keluar dari profile_menu dan kembali ke main_menu
         elif pilihan == '2':
-            lihat_resep_favorit(user_favorites, favorites, user['username'])
+            lihat_resep_favorit(user_favorites, favorites, user['username'], user)
         elif pilihan == '3':
             return  # Kembali ke menu sebelumnya
         else:
