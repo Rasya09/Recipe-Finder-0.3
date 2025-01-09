@@ -7,7 +7,7 @@ from resep import load_recipes, show_latest_recipes
 DATA_FILE = 'users.json'
 
 # Fungsi memuat data dari file JSON
-def     load_data():
+def load_data():
     if not os.path.exists(DATA_FILE):
         with open(DATA_FILE, 'w') as file:
             json.dump([], file)
